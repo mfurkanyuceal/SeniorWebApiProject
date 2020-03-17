@@ -20,6 +20,8 @@ namespace SeniorWepApiProject
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseKestrel();
+                    webBuilder.UseUrls("http://54.89.245.137:5000");
                     webBuilder.UseStartup<Startup>();
                 });
     }
