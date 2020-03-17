@@ -12,6 +12,8 @@ using SeniorWepApiProject.Domain.IdentityModels;
 using SeniorWepApiProject.Data;
 using SeniorWepApiProject.Services.Location;
 using SeniorWepApiProject.Services.Swap;
+using Microsoft.AspNetCore.Builder;
+using System.Net;
 
 namespace SeniorWepApiProject.Installers
 {
@@ -19,6 +21,11 @@ namespace SeniorWepApiProject.Installers
     {
         void IInstaller.InstallServices(IServiceCollection services, IConfiguration configuration)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.KnownProxies.Add(IPAddress.Parse("172.31.84.140"));
+            });
+            
             var jwtSettings = new JwtSettings();
 
             configuration.Bind(nameof(jwtSettings),jwtSettings);

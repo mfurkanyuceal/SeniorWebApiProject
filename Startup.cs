@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SeniorWepApiProject.Options;
 using SeniorWepApiProject.Installers;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace SeniorWepApiProject
 {
@@ -61,6 +62,11 @@ namespace SeniorWepApiProject
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             app.UseAuthentication();
 
