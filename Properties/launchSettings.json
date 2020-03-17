@@ -18,7 +18,7 @@
     "SeniorWepApiProject": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://54.89.245.137:5000",
+      "applicationUrl": "http://172.31.84.140:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
