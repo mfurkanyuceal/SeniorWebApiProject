@@ -2180,7 +2180,7 @@
       "outputPath": "/home/muhammedfurkan/SeniorWepApiProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/muhammedfurkan/.config/NuGet/NuGet.Config"
+        "/home/muhammedfurkan/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"
