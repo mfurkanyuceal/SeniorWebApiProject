@@ -18,72 +18,73 @@ namespace SeniorWepApiProject.Services.Identity
 
         private readonly JwtSettings _jwtSettings;
 
-        public IdentityService(UserManager<AppUser> userManager,JwtSettings jwtSettings)
+        public IdentityService(UserManager<AppUser> userManager, JwtSettings jwtSettings)
         {
-            _userManager=userManager;
-            _jwtSettings=jwtSettings;
+            _userManager = userManager;
+            _jwtSettings = jwtSettings;
         }
 
-        public async Task<AuthenticationResult> LoginAsync(string EmailOrUserName, string password)
+        public async Task<AuthenticationResult> LoginAsync(string emailOrUserName, string password)
         {
-            var user = await _userManager.FindByEmailAsync(EmailOrUserName);
+            var user = await _userManager.FindByEmailAsync(emailOrUserName);
 
             if (user == null)
             {
-
-                user = await _userManager.FindByNameAsync(EmailOrUserName);
+                user = await _userManager.FindByNameAsync(emailOrUserName);
 
                 if (user == null)
                 {
                     return new AuthenticationResult
                     {
-                        Errors = new []{"User does not exist"}
+                        Errors = new[] {"User does not exist"}
                     };
-
                 }
             }
 
 
-            var userHasValidPassword = await _userManager.CheckPasswordAsync(user,password);
+            var userHasValidPassword = await _userManager.CheckPasswordAsync(user, password);
 
             if (!userHasValidPassword)
             {
-                return new AuthenticationResult{
-                    Errors = new [] {"User/password combination is wrong"}
+                return new AuthenticationResult
+                {
+                    Errors = new[] {"User/password combination is wrong"}
                 };
             }
 
             return GenerateAuthenticationresultForUser(user);
         }
- 
+
         private AuthenticationResult GenerateAuthenticationresultForUser(AppUser user)
         {
-
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var key = Encoding.ASCII.GetBytes(_jwtSettings.Secret);
 
-            var tokenDescriptor = new SecurityTokenDescriptor{
-                Subject = new ClaimsIdentity(new [] {
-                    new Claim(JwtRegisteredClaimNames.Sub,user.Email),
-                    new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[]
+                {
+                    new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim("id",user.Id)
+                    new Claim("id", user.Id)
                 }),
                 Expires = DateTime.UtcNow.AddHours(2),
-                SigningCredentials = new SigningCredentials ( new SymmetricSecurityKey(key),SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature)
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return new AuthenticationResult{
+            return new AuthenticationResult
+            {
                 Success = true,
                 Token = tokenHandler.WriteToken(token)
             };
+        }
 
-        } 
-
-        public async Task<AuthenticationResult> RegisterAsync(string username,string email, string password)
+        public async Task<AuthenticationResult> RegisterAsync(string username, string email, string password)
         {
             var existingUser1 = await _userManager.FindByEmailAsync(email);
 
@@ -91,7 +92,7 @@ namespace SeniorWepApiProject.Services.Identity
             {
                 return new AuthenticationResult
                 {
-                    Errors = new []{"User with this email address already exists"}
+                    Errors = new[] {"User with this email address already exists"}
                 };
             }
 
@@ -101,27 +102,28 @@ namespace SeniorWepApiProject.Services.Identity
             {
                 return new AuthenticationResult
                 {
-                    Errors = new []{"User with this username already exists"}
+                    Errors = new[] {"User with this username already exists"}
                 };
             }
 
 
-            var newUser = new AppUser{
+            var newUser = new AppUser
+            {
                 Email = email,
                 UserName = username
             };
 
-            var createdUser = await _userManager.CreateAsync(newUser,password);
+            var createdUser = await _userManager.CreateAsync(newUser, password);
 
             if (!createdUser.Succeeded)
             {
-                return new AuthenticationResult {
+                return new AuthenticationResult
+                {
                     Errors = createdUser.Errors.Select(x => x.Description)
                 };
             }
 
             return GenerateAuthenticationresultForUser(newUser);
-
         }
     }
 }

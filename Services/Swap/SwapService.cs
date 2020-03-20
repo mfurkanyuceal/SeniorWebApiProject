@@ -9,47 +9,50 @@ namespace SeniorWepApiProject.Services.Swap
     {
         private readonly DataContext _dataContext;
 
-        public SwapService (DataContext dataContext) {
+        public SwapService(DataContext dataContext)
+        {
             _dataContext = dataContext;
         }
+
         public async Task<bool> CreateSwapAsync(Domain.Swap swap)
         {
             await _dataContext.Swaps.AddAsync(swap);
             var created = await _dataContext.SaveChangesAsync();
 
-            return created > 0;        
+            return created > 0;
         }
 
-        public async  Task<bool> DeleteSwapAsync(string swapId)
+        public async Task<bool> DeleteSwapAsync(string swapId)
         {
             var swap = await GetSwapByIdAsync(swapId);
 
-            if (swap == null) {
+            if (swap == null)
+            {
                 return false;
             }
 
-            _dataContext.Swaps.Remove (swap);
+            _dataContext.Swaps.Remove(swap);
 
-            var deleted = await _dataContext.SaveChangesAsync ();
+            var deleted = await _dataContext.SaveChangesAsync();
 
-            return deleted > 0;        
+            return deleted > 0;
         }
 
-        public async  Task<Domain.Swap> GetSwapByIdAsync(string swapId)
+        public async Task<Domain.Swap> GetSwapByIdAsync(string swapId)
         {
-            return await _dataContext.Swaps.SingleOrDefaultAsync (x => x.Id == swapId);
+            return await _dataContext.Swaps.SingleOrDefaultAsync(x => x.Id == swapId);
         }
 
-        public async  Task<List<Domain.Swap>> GetSwapsAsync()
+        public async Task<List<Domain.Swap>> GetSwapsAsync()
         {
-            return await _dataContext.Swaps.ToListAsync ();
+            return await _dataContext.Swaps.ToListAsync();
         }
 
-        public async  Task<bool> UpdateSwapAsync(Domain.Swap swapToUpdate)
+        public async Task<bool> UpdateSwapAsync(Domain.Swap swapToUpdate)
         {
-            _dataContext.Swaps.Update (swapToUpdate);
+            _dataContext.Swaps.Update(swapToUpdate);
 
-            var updated = await _dataContext.SaveChangesAsync ();
+            var updated = await _dataContext.SaveChangesAsync();
 
             return updated > 0;
         }

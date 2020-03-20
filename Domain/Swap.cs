@@ -8,32 +8,28 @@ namespace SeniorWepApiProject.Domain
 {
     public class Swap
     {
-        [Key]
-        public string Id { get; set; }
-        
-        [ForeignKey("senderUserId")] 
-        public AppUser SenderUser { get; set; }
-        public string senderUserId { get; set; }
+        [Key] public string Id { get; set; }
 
-        [ForeignKey("recieverUserId")]       
-        public AppUser RecieverUser { get; set; }
+        [ForeignKey("SenderUserId")] public AppUser SenderUser { get; set; }
+        public string SenderUserId { get; set; }
 
-        public string recieverUserId { get; set; }
+        [ForeignKey("RecieverUserId")] public AppUser RecieverUser { get; set; }
+
+        public string RecieverUserId { get; set; }
 
         public string SwapDate { get; set; }
 
-        public string sendedDate { get; set; }       
+        public string SendedDate { get; set; }
 
-        public string acceptedDate { get; set; }
+        public string AcceptedDate { get; set; }
 
         public int Rate { get; set; }
 
-        public bool isDone { get; set; }
-        public bool isAccepted { get; set; }
-        public bool isActive { get; set; }
+        public bool IsDone { get; set; }
+        public bool IsAccepted { get; set; }
+        public bool IsActive { get; set; }
 
-        [ForeignKey("AddressId")]
-        public Address SwapAddress { get; set; }
+        [ForeignKey("AddressId")] public Address SwapAddress { get; set; }
         public int AddressId { get; set; }
     }
 }

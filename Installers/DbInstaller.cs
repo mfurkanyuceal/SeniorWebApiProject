@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SeniorWepApiProject.Domain.IdentityModels;
+using SeniorWepApiProject.Services.Location;
+using SeniorWepApiProject.Services.Swap;
 
 namespace SeniorWepApiProject.Installers
 {
@@ -14,17 +16,12 @@ namespace SeniorWepApiProject.Installers
         {
             services.AddDbContext<DataContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-            
-            services.AddIdentity<AppUser,AppRole>(option => {
-                option.User.RequireUniqueEmail=true;
-            }).AddEntityFrameworkStores<DataContext>();
-            
+
+            services.AddIdentity<AppUser, AppRole>(option => { option.User.RequireUniqueEmail = true; })
+                .AddEntityFrameworkStores<DataContext>();
+
             services.AddControllersWithViews();
-           services.AddRazorPages();
-
-           //services.AddScoped<IPostService,PostService>(); 
-
-
+            services.AddRazorPages();
         }
     }
 }

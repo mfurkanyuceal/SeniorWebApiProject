@@ -8,10 +8,5 @@ namespace SeniorWebApiProject.Domain.UserModels
         public string UserId { get; set; }
         public Fancy Fancy { get; set; }
         public AppUser User { get; set; }
-
-
-
     }
-    
-    
 }

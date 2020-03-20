@@ -5,6 +5,6 @@ namespace SeniorWepApiProject.Installers
 {
     public interface IInstaller
     {
-         void InstallServices(IServiceCollection services,IConfiguration configuration);
+        void InstallServices(IServiceCollection services, IConfiguration configuration);
     }
 }

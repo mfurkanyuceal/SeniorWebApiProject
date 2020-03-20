@@ -10,7 +10,7 @@ using SeniorWepApiProject.Domain.IdentityModels;
 
 namespace SeniorWepApiProject.Data
 {
-    public class DataContext : IdentityDbContext<AppUser,AppRole,string>
+    public class DataContext : IdentityDbContext<AppUser, AppRole, string>
     {
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
@@ -32,29 +32,28 @@ namespace SeniorWepApiProject.Data
             base.OnModelCreating(modelBuilder);
 
             //Ability
-                modelBuilder.Entity<UserAbility>()
-                .HasKey(bc => new { bc.UserId, bc.AbilityId });  
+            modelBuilder.Entity<UserAbility>()
+                .HasKey(bc => new {bc.UserId, bc.AbilityId});
             modelBuilder.Entity<UserAbility>()
                 .HasOne(bc => bc.Ability)
                 .WithMany(b => b.UserAbilities)
-                .HasForeignKey(bc => bc.AbilityId);  
+                .HasForeignKey(bc => bc.AbilityId);
             modelBuilder.Entity<UserAbility>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.UserAbilities)
                 .HasForeignKey(bc => bc.UserId);
 
             //Fancy
-                modelBuilder.Entity<UserFancy>()
-                .HasKey(bc => new { bc.UserId, bc.FancyId });  
+            modelBuilder.Entity<UserFancy>()
+                .HasKey(bc => new {bc.UserId, bc.FancyId});
             modelBuilder.Entity<UserFancy>()
                 .HasOne(bc => bc.Fancy)
                 .WithMany(b => b.UserFancies)
-                .HasForeignKey(bc => bc.FancyId);  
+                .HasForeignKey(bc => bc.FancyId);
             modelBuilder.Entity<UserFancy>()
                 .HasOne(bc => bc.User)
                 .WithMany(c => c.UserFancies)
                 .HasForeignKey(bc => bc.UserId);
-            
         }
     }
 }

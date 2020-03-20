@@ -24,6 +24,7 @@ namespace SeniorWepApiProject
         {
             Configuration = configuration;
         }
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -47,17 +48,15 @@ namespace SeniorWepApiProject
                 app.UseHsts();
             }
 
-            var swaggerOptions = new SwaggerOptions ();
-            Configuration.GetSection (nameof (SwaggerOptions)).Bind (swaggerOptions);
+            var swaggerOptions = new SwaggerOptions();
+            Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
 
-            app.UseSwagger (option => {
-                option.RouteTemplate = swaggerOptions.JsonRoute;
+            app.UseSwagger(option => { option.RouteTemplate = swaggerOptions.JsonRoute; });
+
+            app.UseSwaggerUI(option =>
+            {
+                option.SwaggerEndpoint(swaggerOptions.UIEndpoint, swaggerOptions.Description);
             });
-
-            app.UseSwaggerUI (option => {
-                option.SwaggerEndpoint (swaggerOptions.UIEndpoint, swaggerOptions.Description);
-            });
-
 
 
             app.UseHttpsRedirection();
