@@ -8,7 +8,7 @@ namespace SeniorWepApiProject.Contracts.V1
 
         public const string Base = Root + "/" + Version;
 
-        public static class Swap
+        public static class SwapRoutes
         {
             public const string GetAll = Base + "/swaps";
             public const string Get = Base + "/swaps/{swapId}";
@@ -53,10 +53,16 @@ namespace SeniorWepApiProject.Contracts.V1
             public const string Create = Base + Location + "/addresses";
         }
 
-        public static class Identity
+        public static class User
         {
-            public const string Login = Base + "/identity/login";
-            public const string Register = Base + "/identity/register";
+            public const string GetAll = Base + Location + "/users";
+            public const string Login = Base + "/user/login";
+            public const string Get = Base + "/user/{userId}";
+            public const string Register = Base + "/user/register";
+            public const string Update = Base + "/user/update";
+            public const string Delete = Base + "/user/delete";
+            public const string UploadPhoto = Base + "/user/uploadphoto";
+            public const string ProfilePhoto = Base + "/user/profilephoto";
         }
     }
 }

@@ -1,24 +1,25 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SeniorWepApiProject.Domain;
-using SeniorWepApiProject.Domain.IdentityModels;
+using SeniorWepApiProject.Domain.AppUserModels;
 using SeniorWepApiProject.Options;
 
-namespace SeniorWepApiProject.Services.Identity
+namespace SeniorWepApiProject.Services.User
 {
-    public class IdentityService : IIdentityService
+    public class UserService : IUserService
     {
         private readonly UserManager<AppUser> _userManager;
-
         private readonly JwtSettings _jwtSettings;
 
-        public IdentityService(UserManager<AppUser> userManager, JwtSettings jwtSettings)
+        public UserService(UserManager<AppUser> userManager, JwtSettings jwtSettings)
         {
             _userManager = userManager;
             _jwtSettings = jwtSettings;
@@ -52,10 +53,72 @@ namespace SeniorWepApiProject.Services.Identity
                 };
             }
 
-            return GenerateAuthenticationresultForUser(user);
+            return GenerateAuthenticationResultForUser(user);
         }
 
-        private AuthenticationResult GenerateAuthenticationresultForUser(AppUser user)
+        public async Task<AuthenticationResult> UpdateAsync(AppUser user)
+        {
+            var result = await _userManager.UpdateAsync(user);
+
+            if (result.Succeeded)
+            {
+                return new AuthenticationResult
+                {
+                    Success = true,
+                    User = user,
+                };
+            }
+            else
+            {
+                return new AuthenticationResult
+                {
+                    Errors = new[] {result.Errors.FirstOrDefault()?.Description},
+                    Success = false,
+                };
+            }
+        }
+
+        public async Task<AuthenticationResult> DeleteAsync(AppUser user)
+        {
+            var result = await _userManager.DeleteAsync(user);
+
+            if (result.Succeeded)
+            {
+                return new AuthenticationResult
+                {
+                    Success = true,
+                };
+            }
+            else
+            {
+                return new AuthenticationResult
+                {
+                    Errors = new[] {result.Errors.FirstOrDefault()?.Description},
+                    Success = false,
+                };
+            }
+        }
+
+        public AppUser GetUserByIdAsync(string userId)
+        {
+            var user = _userManager.Users.Include(x => x.Addresses)
+                .ThenInclude(add => add.Neighborhood).ThenInclude(add => add.District).ThenInclude(add => add.City)
+                .Include(x => x.UserAbilities).ThenInclude(x => x.Ability).Include(x => x.UserFancies)
+                .ThenInclude(x => x.Fancy).Include(x => x.OutgoingSwaps).Include(x => x.OutgoingMessages)
+                .Include(x => x.InComingSwaps).Include(x => x.InComingMessages)
+                .FirstOrDefault(x => x.Id == userId);
+
+
+            return user;
+        }
+
+
+        public async Task<List<AppUser>> GetUsersAsync()
+        {
+            return await _userManager.Users.ToListAsync();
+        }
+
+        private AuthenticationResult GenerateAuthenticationResultForUser(AppUser user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -76,11 +139,12 @@ namespace SeniorWepApiProject.Services.Identity
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            user.Token = tokenHandler.WriteToken(token);
 
             return new AuthenticationResult
             {
                 Success = true,
-                Token = tokenHandler.WriteToken(token)
+                User = user
             };
         }
 
@@ -114,6 +178,12 @@ namespace SeniorWepApiProject.Services.Identity
                 UserName = username,
             };
 
+
+            if (newUser.UserPhotoUrl.Equals(""))
+            {
+                newUser.UserPhotoUrl = "defaultuser.png";
+            }
+
             var createdUser = await _userManager.CreateAsync(newUser, password);
 
             if (!createdUser.Succeeded)
@@ -124,7 +194,7 @@ namespace SeniorWepApiProject.Services.Identity
                 };
             }
 
-            return GenerateAuthenticationresultForUser(newUser);
+            return GenerateAuthenticationResultForUser(newUser);
         }
     }
 }

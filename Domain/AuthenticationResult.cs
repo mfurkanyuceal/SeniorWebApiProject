@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWepApiProject.Domain
 {
     public class AuthenticationResult
     {
-        public string Token { get; set; }
+        public AppUser User { get; set; }
         public bool Success { get; set; }
         public IEnumerable<string> Errors { get; set; }
     }

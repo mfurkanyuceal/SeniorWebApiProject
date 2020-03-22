@@ -1,19 +1,17 @@
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
-using SeniorWepApiProject.Options;
-using SeniorWepApiProject.Services.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using SeniorWepApiProject.Domain.IdentityModels;
-using SeniorWepApiProject.Data;
+using SeniorWepApiProject.Options;
 using SeniorWepApiProject.Services.Location;
 using SeniorWepApiProject.Services.Swap;
-using Microsoft.AspNetCore.Builder;
-using System.Net;
+using SeniorWepApiProject.Services.User;
 
 namespace SeniorWepApiProject.Installers
 {
@@ -31,7 +29,7 @@ namespace SeniorWepApiProject.Installers
             configuration.Bind(nameof(jwtSettings), jwtSettings);
             services.AddSingleton(jwtSettings);
 
-            services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ILocationService, LocationService>();
             services.AddScoped<ISwapService, SwapService>();
 

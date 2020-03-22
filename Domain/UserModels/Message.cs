@@ -1,7 +1,5 @@
-using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using SeniorWepApiProject.Domain.IdentityModels;
+using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWebApiProject.Domain.UserModels
 {
@@ -12,23 +10,16 @@ namespace SeniorWebApiProject.Domain.UserModels
         [Required(ErrorMessage = "Mesajınızı giriniz.")]
         public string Context { get; set; }
 
-        [Required]
-        [ForeignKey("senderUserId")]
-        public AppUser SenderUser { get; set; }
-
-        public string senderUserId { get; set; }
-
-        [Required]
-        [ForeignKey("recieverUserId")]
-        public AppUser RecieverUser { get; set; }
-
-        public string recieverUserId { get; set; }
+        [Required] public AppUser SenderUser { get; set; }
 
 
-        [Column(TypeName = "Date")] public DateTime SendTime { get; set; }
+        [Required] public AppUser RecieverUser { get; set; }
 
-        [Column(TypeName = "Date")] public DateTime ReadTime { get; set; }
 
-        public bool isDeleted { get; set; }
+        public string SendTime { get; set; }
+
+        public string ReadTime { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

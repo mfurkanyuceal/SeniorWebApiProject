@@ -1,4 +1,4 @@
-using SeniorWepApiProject.Domain.IdentityModels;
+using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWebApiProject.Domain.UserModels
 {

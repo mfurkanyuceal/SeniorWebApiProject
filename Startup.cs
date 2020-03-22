@@ -1,20 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.EntityFrameworkCore;
-using SeniorWepApiProject.Data;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SeniorWepApiProject.Options;
 using SeniorWepApiProject.Installers;
-using Microsoft.AspNetCore.HttpOverrides;
+using SeniorWepApiProject.Options;
 
 namespace SeniorWepApiProject
 {
@@ -81,6 +73,8 @@ namespace SeniorWepApiProject
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            app.Run(async (context) => { await context.Response.WriteAsync("Could Not Find"); });
         }
     }
 }
