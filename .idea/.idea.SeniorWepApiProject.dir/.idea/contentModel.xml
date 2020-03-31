@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_.19.00" t="ExcludeRecursive" />
+    <e p="$PROJECT_DIR$" t="IncludeRecursive">
+      <e p="Areas" t="Include">
+        <e p="Identity" t="Include">
+          <e p="Pages" t="Include">
+            <e p="_ViewStart.cshtml" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Authorization" t="Include">
+        <e p="WorksForCompanyHandler.cs" t="Include" />
+        <e p="WorksForCompanyRequirement.cs" t="Include" />
+      </e>
+      <e p="Cache" t="Include">
+        <e p="CachedAttribute.cs" t="Include" />
+        <e p="RedisCacheSettings.cs" t="Include" />
+      </e>
+      <e p="Contracts" t="Include">
+        <e p="HealthChecks" t="Include">
+          <e p="HealthCheck.cs" t="Include" />
+          <e p="HealthCheckResponse.cs" t="Include" />
+          <e p="RedisHealthCheck.cs" t="Include" />
+        </e>
+        <e p="V1" t="Include">
+          <e p="ApiRoutes.cs" t="Include" />
+          <e p="ErrorModel.cs" t="Include" />
+          <e p="Requests" t="Include">
+            <e p="CreateAbilityRequest.cs" t="Include" />
+            <e p="CreateAddressRequest.cs" t="Include" />
+            <e p="CreateFancyRequest.cs" t="Include" />
+            <e p="CreateSwapRequest.cs" t="Include" />
+            <e p="Queries" t="Include">
+              <e p="GetAllSwapsQuery.cs" t="Include" />
+              <e p="PaginationQuery.cs" t="Include" />
+            </e>
+            <e p="RefreshTokenRequest.cs" t="Include" />
+            <e p="UpdateAbilityRequest.cs" t="Include" />
+            <e p="UpdateAddressRequest.cs" t="Include" />
+            <e p="UpdateFancyRequest.cs" t="Include" />
+            <e p="UpdateSwapRequest.cs" t="Include" />
+            <e p="UserDeleteRequest.cs" t="Include" />
+            <e p="UserFacebookAuthRequest.cs" t="Include" />
+            <e p="UserLoginRequest.cs" t="Include" />
+            <e p="UserRegistrationRequest.cs" t="Include" />
+            <e p="UserUpdateRequest.cs" t="Include" />
+          </e>
+          <e p="Responses" t="Include">
+            <e p="AbilityResponse.cs" t="Include" />
+            <e p="AddressResponse.cs" t="Include" />
+            <e p="AuthFailedResponse.cs" t="Include" />
+            <e p="AuthSuccessResponse.cs" t="Include" />
+            <e p="DeleteFailedRequest.cs" t="Include" />
+            <e p="ErrorResponse.cs" t="Include" />
+            <e p="FancyResponse.cs" t="Include" />
+            <e p="PagedResponse.cs" t="Include" />
+            <e p="Response.cs" t="Include" />
+            <e p="SwapResponse.cs" t="Include" />
+            <e p="UpdateFailedResponse.cs" t="Include" />
+            <e p="UpdateSuccessResponse.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="Controllers" t="Include">
+        <e p="V1" t="Include">
+          <e p="AddressController.cs" t="Include" />
+          <e p="SwapController.cs" t="Include" />
+          <e p="UserController.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Data" t="Include">
+        <e p="DataContext.cs" t="Include" />
+      </e>
+      <e p="Domain" t="Include">
+        <e p="Address.cs" t="Include" />
+        <e p="AppUserModels" t="Include">
+          <e p="AppUser.cs" t="Include" />
+        </e>
+        <e p="AuthenticationResult.cs" t="Include" />
+        <e p="GetAllSwapsFilter.cs" t="Include" />
+        <e p="PaginationFilter.cs" t="Include" />
+        <e p="RefreshToken.cs" t="Include" />
+        <e p="Swap.cs" t="Include" />
+        <e p="UserModels" t="Include">
+          <e p="Ability.cs" t="Include" />
+          <e p="Fancy.cs" t="Include" />
+          <e p="Message.cs" t="Include" />
+          <e p="UserAbility.cs" t="Include" />
+          <e p="UserFancy.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Extensions" t="Include">
+        <e p="GeneralExtensions.cs" t="Include" />
+      </e>
+      <e p="External" t="Include">
+        <e p="Contracts" t="Include">
+          <e p="FacebookTokenValidationResult.cs" t="Include" />
+          <e p="FacebookUserInfoResult.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Filters" t="Include">
+        <e p="ValidationFilter.cs" t="Include" />
+      </e>
+      <e p="Helpers" t="Include">
+        <e p="PaginationHelpers.cs" t="Include" />
+      </e>
+      <e p="Installers" t="Include">
+        <e p="CacheInstaller.cs" t="Include" />
+        <e p="DbInstaller.cs" t="Include" />
+        <e p="FacebookAuthInstaller.cs" t="Include" />
+        <e p="HealthChecksInstaller.cs" t="Include" />
+        <e p="IInstaller.cs" t="Include" />
+        <e p="InstallerExtensions.cs" t="Include" />
+        <e p="MvcInstaller.cs" t="Include" />
+        <e p="SwaggerInstaller.cs" t="Include" />
+      </e>
+      <e p="MappingProfiles" t="Include">
+        <e p="DomainToResponseProfile.cs" t="Include" />
+        <e p="RequestToDomainProfile.cs" t="Include" />
+      </e>
+      <e p="Migrations" t="Include">
+        <e p="20200331123714_InitialMigration.Designer.cs" t="Include" />
+        <e p="20200331123714_InitialMigration.cs" t="Include" />
+        <e p="DataContextModelSnapshot.cs" t="Include" />
+      </e>
+      <e p="Models" t="Include">
+        <e p="ErrorViewModel.cs" t="Include" />
+      </e>
+      <e p="Options" t="Include">
+        <e p="FacebookAuthSettings.cs" t="Include" />
+        <e p="JwtSettings.cs" t="Include" />
+        <e p="SwaggerOptions.cs" t="Include" />
+      </e>
+      <e p="Program.cs" t="Include" />
+      <e p="Properties" t="Include">
+        <e p="launchSettings.json" t="Include" />
+      </e>
+      <e p="SeniorWepApiProject.csproj" t="IncludeRecursive" />
+      <e p="Services" t="Include">
+        <e p="AddressService.cs" t="Include" />
+        <e p="FacebookAuthService.cs" t="Include" />
+        <e p="IAddressService.cs" t="Include" />
+        <e p="IFacebookAuthService.cs" t="Include" />
+        <e p="IResponseCacheService.cs" t="Include" />
+        <e p="ISwapService.cs" t="Include" />
+        <e p="IUriService.cs" t="Include" />
+        <e p="IUserService.cs" t="Include" />
+        <e p="ResponseCacheService.cs" t="Include" />
+        <e p="SwapService.cs" t="Include" />
+        <e p="UriService.cs" t="Include" />
+        <e p="UserService.cs" t="Include" />
+      </e>
+      <e p="Startup.cs" t="Include" />
+      <e p="SwaggerExamples" t="Include">
+        <e p="Requests" t="Include">
+          <e p="CreateSwapRequestExample.cs" t="Include" />
+        </e>
+        <e p="Responses" t="Include">
+          <e p="SwapResponseExample.cs" t="Include" />
+        </e>
+      </e>
+      <e p="Validators" t="Include">
+        <e p="CreateSwapRequestValidator.cs" t="Include" />
+      </e>
+      <e p="Views" t="Include">
+        <e p="Home" t="Include">
+          <e p="Index.cshtml" t="Include" />
+          <e p="Privacy.cshtml" t="Include" />
+        </e>
+        <e p="Shared" t="Include">
+          <e p="Error.cshtml" t="Include" />
+          <e p="_Layout.cshtml" t="Include" />
+          <e p="_LoginPartial.cshtml" t="Include" />
+          <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+        </e>
+        <e p="_ViewImports.cshtml" t="Include" />
+        <e p="_ViewStart.cshtml" t="Include" />
+      </e>
+      <e p="appsettings.Development.json" t="Include" />
+      <e p="appsettings.json" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="Debug" t="Include">
+          <e p="netcoreapp3.1" t="Include">
+            <e p="SeniorWepApiProject.AssemblyInfo.cs" t="Include" />
+            <e p="SeniorWepApiProject.RazorAssemblyInfo.cs" t="Include" />
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="wwwroot" t="Include">
+        <e p="css" t="Include">
+          <e p="site.css" t="Include" />
+        </e>
+        <e p="defaultuser.png" t="Include" />
+        <e p="favicon.ico" t="Include" />
+        <e p="js" t="Include">
+          <e p="site.js" t="Include" />
+        </e>
+        <e p="lib" t="Include">
+          <e p="bootstrap" t="Include">
+            <e p="LICENSE" t="Include" />
+            <e p="dist" t="Include">
+              <e p="css" t="Include">
+                <e p="bootstrap-grid.css" t="Include" />
+                <e p="bootstrap-grid.css.map" t="Include" />
+                <e p="bootstrap-grid.min.css" t="Include" />
+                <e p="bootstrap-grid.min.css.map" t="Include" />
+                <e p="bootstrap-reboot.css" t="Include" />
+                <e p="bootstrap-reboot.css.map" t="Include" />
+                <e p="bootstrap-reboot.min.css" t="Include" />
+                <e p="bootstrap-reboot.min.css.map" t="Include" />
+                <e p="bootstrap.css" t="Include" />
+                <e p="bootstrap.css.map" t="Include" />
+                <e p="bootstrap.min.css" t="Include" />
+                <e p="bootstrap.min.css.map" t="Include" />
+              </e>
+              <e p="js" t="Include">
+                <e p="bootstrap.bundle.js" t="Include" />
+                <e p="bootstrap.bundle.js.map" t="Include" />
+                <e p="bootstrap.bundle.min.js" t="Include" />
+                <e p="bootstrap.bundle.min.js.map" t="Include" />
+                <e p="bootstrap.js" t="Include" />
+                <e p="bootstrap.js.map" t="Include" />
+                <e p="bootstrap.min.js" t="Include" />
+                <e p="bootstrap.min.js.map" t="Include" />
+              </e>
+            </e>
+          </e>
+          <e p="jquery" t="Include">
+            <e p="LICENSE.txt" t="Include" />
+            <e p="dist" t="Include">
+              <e p="jquery.js" t="Include" />
+              <e p="jquery.min.js" t="Include" />
+              <e p="jquery.min.map" t="Include" />
+            </e>
+          </e>
+          <e p="jquery-validation" t="Include">
+            <e p="LICENSE.md" t="Include" />
+            <e p="dist" t="Include">
+              <e p="additional-methods.js" t="Include" />
+              <e p="additional-methods.min.js" t="Include" />
+              <e p="jquery.validate.js" t="Include" />
+              <e p="jquery.validate.min.js" t="Include" />
+            </e>
+          </e>
+          <e p="jquery-validation-unobtrusive" t="Include">
+            <e p="LICENSE.txt" t="Include" />
+            <e p="jquery.validate.unobtrusive.js" t="Include" />
+            <e p="jquery.validate.unobtrusive.min.js" t="Include" />
+          </e>
+        </e>
+      </e>
+    </e>
+  </component>
+</project>
