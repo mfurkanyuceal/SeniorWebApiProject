@@ -14,7 +14,7 @@ namespace SeniorWepApiProject.Installers
             services.AddDbContext<DataContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentityCore<AppUser>(option => { option.User.RequireUniqueEmail = true; })
+            services.AddDefaultIdentity<AppUser>(option => { option.User.RequireUniqueEmail = true; })
                 .AddRoles<IdentityRole>().AddEntityFrameworkStores<DataContext>();
 
             services.AddControllersWithViews();

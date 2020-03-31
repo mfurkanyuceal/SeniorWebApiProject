@@ -67,6 +67,7 @@
       <e p="Controllers" t="Include">
         <e p="V1" t="Include">
           <e p="AddressController.cs" t="Include" />
+          <e p="HomeController.cs" t="Include" />
           <e p="SwapController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>

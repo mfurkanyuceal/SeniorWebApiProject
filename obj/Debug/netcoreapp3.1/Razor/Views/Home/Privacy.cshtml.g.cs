@@ -14,20 +14,34 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
 #line 1 "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/Views/_ViewImports.cshtml"
-using SeniorWepApiProject;
+using Microsoft.AspNetCore.Identity;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
 #line 2 "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/Views/_ViewImports.cshtml"
+using SeniorWepApiProject;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 3 "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/Views/_ViewImports.cshtml"
 using SeniorWepApiProject.Models;
 
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 4 "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/Views/_ViewImports.cshtml"
+using SeniorWepApiProject.Domain.AppUserModels;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"d8ddb6bffa5a9b264bf8f89038bf03c234083fd3", @"/Views/Home/Privacy.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"64f12a19bc7150e2a69cde91b0599de79de22fe4", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"2be5809a7a383b79dd212fc7e62d5f2355311d12", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Privacy : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

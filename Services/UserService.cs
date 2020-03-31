@@ -197,8 +197,9 @@ namespace SeniorWepApiProject.Services
 
                 return principal;
             }
-            catch (Exception e)
+            catch (Exception exception)
             {
+                Console.WriteLine(exception.Message);
                 return null;
             }
         }
