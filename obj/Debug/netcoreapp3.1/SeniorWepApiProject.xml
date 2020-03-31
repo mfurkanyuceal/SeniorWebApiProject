@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SeniorWepApiProject</name>
+    </assembly>
+    <members>
+        <member name="M:SeniorWepApiProject.Controllers.V1.SwapController.Create(SeniorWepApiProject.Contracts.V1.Requests.CreateSwapRequest)">
+            <summary>
+            Create a swap in the system 
+            </summary>
+            <response code="201">Create a swap in the system</response>
+            <response code="400">Unable to create the swap due to validation error</response>
+        </member>
+        <member name="M:SeniorWepApiProject.Controllers.V1.SwapController.GetAll(SeniorWepApiProject.Contracts.V1.Requests.Queries.GetAllSwapsQuery,SeniorWepApiProject.Contracts.V1.Requests.Queries.PaginationQuery)">
+            <summary>
+            Returns all swaps in the system
+            </summary>
+            <response code="200">Returns all swaps in the system</response>
+        </member>
+        <member name="M:SeniorWepApiProject.Controllers.V1.SwapController.GetAllOutGoing(SeniorWepApiProject.Contracts.V1.Requests.Queries.GetAllSwapsQuery,SeniorWepApiProject.Contracts.V1.Requests.Queries.PaginationQuery)">
+            <summary>
+            Returns User OutGoing all swaps in the system
+            </summary>
+            <response code="200">Returns all swaps in the system</response>
+        </member>
+        <member name="M:SeniorWepApiProject.Controllers.V1.SwapController.GetAllInComing(SeniorWepApiProject.Contracts.V1.Requests.Queries.GetAllSwapsQuery,SeniorWepApiProject.Contracts.V1.Requests.Queries.PaginationQuery)">
+            <summary>
+            Returns User InComing all swaps in the system
+            </summary>
+            <response code="200">Returns all swaps in the system</response>
+        </member>
+    </members>
+</doc>

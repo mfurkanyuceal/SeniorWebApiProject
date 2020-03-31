@@ -7,13 +7,11 @@ namespace SeniorWebApiProject.Domain.UserModels
     {
         [Key] public string Id { get; set; }
 
-        [Required(ErrorMessage = "Mesajınızı giriniz.")]
         public string Context { get; set; }
 
-        [Required] public AppUser SenderUser { get; set; }
+        public AppUser SenderUser { get; set; }
 
-
-        [Required] public AppUser RecieverUser { get; set; }
+        public AppUser RecieverUser { get; set; }
 
 
         public string SendTime { get; set; }

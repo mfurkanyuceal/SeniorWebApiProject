@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
-using SeniorWebApiProject.Domain.LocationModels;
 using SeniorWebApiProject.Domain.UserModels;
 
 namespace SeniorWepApiProject.Domain.AppUserModels
@@ -24,9 +23,9 @@ namespace SeniorWepApiProject.Domain.AppUserModels
         public bool IsActive { get; set; }
         public string UserPhotoUrl { get; set; }
 
-        public virtual ICollection<Swap.Swap> InComingSwaps { get; set; }
+        public virtual ICollection<Swap> InComingSwaps { get; set; }
         public virtual ICollection<Message> InComingMessages { get; set; }
-        public virtual ICollection<Swap.Swap> OutgoingSwaps { get; set; }
+        public virtual ICollection<Swap> OutgoingSwaps { get; set; }
         public virtual ICollection<Message> OutgoingMessages { get; set; }
         public virtual ICollection<UserFancy> UserFancies { get; set; }
         public virtual ICollection<UserAbility> UserAbilities { get; set; }

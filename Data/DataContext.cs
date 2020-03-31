@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using SeniorWebApiProject.Domain.LocationModels;
 using SeniorWebApiProject.Domain.UserModels;
+using SeniorWepApiProject.Domain;
 using SeniorWepApiProject.Domain.AppUserModels;
-using SeniorWepApiProject.Domain.Swap;
 
 namespace SeniorWepApiProject.Data
 {
-    public class DataContext : IdentityDbContext<AppUser, AppRole, string>
+    public class DataContext : IdentityDbContext<AppUser, IdentityRole, string>
     {
         public DataContext(DbContextOptions<DataContext> options)
             : base(options)
@@ -15,10 +15,8 @@ namespace SeniorWepApiProject.Data
         }
 
         public DbSet<Swap> Swaps { get; set; }
-        public DbSet<Neighborhood> Neighborhoods { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<City> Cities { get; set; }
-        public DbSet<District> Districts { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Fancy> Fancies { get; set; }
         public DbSet<Ability> Abilities { get; set; }
@@ -28,40 +26,6 @@ namespace SeniorWepApiProject.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            //Address One to Many Swaps
-            modelBuilder.Entity<Address>()
-                .HasMany(c => c.Swaps)
-                .WithOne(e => e.Address);
-
-            //City One to Many Districts
-            modelBuilder.Entity<City>()
-                .HasMany(c => c.Districts)
-                .WithOne(e => e.City);
-
-            //District One to Many Neigborhoods
-            modelBuilder.Entity<District>()
-                .HasMany(c => c.Neighborhoods)
-                .WithOne(e => e.District);
-
-
-            //Address One to One City
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.City)
-                .WithOne(b => b.Address)
-                .HasForeignKey<City>(b => b.AddressId);
-
-            //Address One to One District
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.District)
-                .WithOne(b => b.Address)
-                .HasForeignKey<District>(b => b.AddressId);
-
-            //Address One to One Neighborhood
-            modelBuilder.Entity<Address>()
-                .HasOne(a => a.Neighborhood)
-                .WithOne(b => b.Address)
-                .HasForeignKey<Neighborhood>(b => b.AddressId);
 
             //AppUser One to Many Address
             modelBuilder.Entity<AppUser>()

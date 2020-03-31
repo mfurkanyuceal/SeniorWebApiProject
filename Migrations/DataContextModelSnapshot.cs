@@ -16,8 +16,34 @@ namespace SeniorWepApiProject.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "3.1.2")
+                .HasAnnotation("ProductVersion", "5.0.0-preview.2.20120.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            {
+                b.Property<string>("Id")
+                    .HasColumnType("text");
+
+                b.Property<string>("ConcurrencyStamp")
+                    .IsConcurrencyToken()
+                    .HasColumnType("text");
+
+                b.Property<string>("Name")
+                    .HasColumnType("character varying(256)")
+                    .HasMaxLength(256);
+
+                b.Property<string>("NormalizedName")
+                    .HasColumnType("character varying(256)")
+                    .HasMaxLength(256);
+
+                b.HasKey("Id");
+
+                b.HasIndex("NormalizedName")
+                    .IsUnique()
+                    .HasName("RoleNameIndex");
+
+                b.ToTable("AspNetRoles");
+            });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
             {
@@ -125,115 +151,6 @@ namespace SeniorWepApiProject.Migrations
                 b.ToTable("AspNetUserTokens");
             });
 
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.Address", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("integer")
-                    .HasAnnotation("Npgsql:ValueGenerationStrategy",
-                        NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                b.Property<string>("AppUserId")
-                    .HasColumnType("text");
-
-                b.Property<int>("CityId")
-                    .HasColumnType("integer");
-
-                b.Property<int>("DistrictId")
-                    .HasColumnType("integer");
-
-                b.Property<int>("NeighborhoodId")
-                    .HasColumnType("integer");
-
-                b.HasKey("Id");
-
-                b.HasIndex("AppUserId");
-
-                b.ToTable("Addresses");
-            });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.City", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("integer")
-                    .HasAnnotation("Npgsql:ValueGenerationStrategy",
-                        NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                b.Property<int>("AddressId")
-                    .HasColumnType("integer");
-
-                b.Property<string>("Name")
-                    .HasColumnType("text");
-
-                b.HasKey("Id");
-
-                b.HasIndex("AddressId")
-                    .IsUnique();
-
-                b.ToTable("Cities");
-            });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.District", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("integer")
-                    .HasAnnotation("Npgsql:ValueGenerationStrategy",
-                        NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                b.Property<int>("AddressId")
-                    .HasColumnType("integer");
-
-                b.Property<int?>("CityId")
-                    .HasColumnType("integer");
-
-                b.Property<string>("Name")
-                    .HasColumnType("text");
-
-                b.HasKey("Id");
-
-                b.HasIndex("AddressId")
-                    .IsUnique();
-
-                b.HasIndex("CityId");
-
-                b.ToTable("Districts");
-            });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.Neighborhood", b =>
-            {
-                b.Property<int>("Id")
-                    .ValueGeneratedOnAdd()
-                    .HasColumnType("integer")
-                    .HasAnnotation("Npgsql:ValueGenerationStrategy",
-                        NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                b.Property<int>("AddressId")
-                    .HasColumnType("integer");
-
-                b.Property<int?>("DistrictId")
-                    .HasColumnType("integer");
-
-                b.Property<string>("Name")
-                    .HasColumnType("text");
-
-                b.Property<int>("Number")
-                    .HasColumnType("integer");
-
-                b.Property<string>("Street")
-                    .HasColumnType("text");
-
-                b.HasKey("Id");
-
-                b.HasIndex("AddressId")
-                    .IsUnique();
-
-                b.HasIndex("DistrictId");
-
-                b.ToTable("Neighborhoods");
-            });
-
             modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.Ability", b =>
             {
                 b.Property<int>("Id")
@@ -272,7 +189,6 @@ namespace SeniorWepApiProject.Migrations
                     .HasColumnType("text");
 
                 b.Property<string>("Context")
-                    .IsRequired()
                     .HasColumnType("text");
 
                 b.Property<bool>("IsDeleted")
@@ -282,14 +198,12 @@ namespace SeniorWepApiProject.Migrations
                     .HasColumnType("text");
 
                 b.Property<string>("RecieverUserId")
-                    .IsRequired()
                     .HasColumnType("text");
 
                 b.Property<string>("SendTime")
                     .HasColumnType("text");
 
                 b.Property<string>("SenderUserId")
-                    .IsRequired()
                     .HasColumnType("text");
 
                 b.HasKey("Id");
@@ -331,30 +245,31 @@ namespace SeniorWepApiProject.Migrations
                 b.ToTable("UserFancies");
             });
 
-            modelBuilder.Entity("SeniorWepApiProject.Domain.AppUserModels.AppRole", b =>
+            modelBuilder.Entity("SeniorWepApiProject.Domain.Address", b =>
             {
-                b.Property<string>("Id")
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("integer")
+                    .HasAnnotation("Npgsql:ValueGenerationStrategy",
+                        NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                b.Property<string>("AppUserId")
                     .HasColumnType("text");
 
-                b.Property<string>("ConcurrencyStamp")
-                    .IsConcurrencyToken()
+                b.Property<string>("Description")
                     .HasColumnType("text");
 
-                b.Property<string>("Name")
-                    .HasColumnType("character varying(256)")
-                    .HasMaxLength(256);
+                b.Property<double>("Latitude")
+                    .HasColumnType("double precision");
 
-                b.Property<string>("NormalizedName")
-                    .HasColumnType("character varying(256)")
-                    .HasMaxLength(256);
+                b.Property<double>("Longitude")
+                    .HasColumnType("double precision");
 
                 b.HasKey("Id");
 
-                b.HasIndex("NormalizedName")
-                    .IsUnique()
-                    .HasName("RoleNameIndex");
+                b.HasIndex("AppUserId");
 
-                b.ToTable("AspNetRoles");
+                b.ToTable("Addresses");
             });
 
             modelBuilder.Entity("SeniorWepApiProject.Domain.AppUserModels.AppUser", b =>
@@ -454,7 +369,37 @@ namespace SeniorWepApiProject.Migrations
                 b.ToTable("AspNetUsers");
             });
 
-            modelBuilder.Entity("SeniorWepApiProject.Domain.Swap.Swap", b =>
+            modelBuilder.Entity("SeniorWepApiProject.Domain.RefreshToken", b =>
+            {
+                b.Property<string>("Token")
+                    .HasColumnType("text");
+
+                b.Property<DateTime>("CreationDate")
+                    .HasColumnType("timestamp without time zone");
+
+                b.Property<DateTime>("ExpiryDate")
+                    .HasColumnType("timestamp without time zone");
+
+                b.Property<bool>("Invalidated")
+                    .HasColumnType("boolean");
+
+                b.Property<string>("JwtId")
+                    .HasColumnType("text");
+
+                b.Property<bool>("Used")
+                    .HasColumnType("boolean");
+
+                b.Property<string>("UserId")
+                    .HasColumnType("text");
+
+                b.HasKey("Token");
+
+                b.HasIndex("UserId");
+
+                b.ToTable("RefreshTokens");
+            });
+
+            modelBuilder.Entity("SeniorWepApiProject.Domain.Swap", b =>
             {
                 b.Property<string>("Id")
                     .HasColumnType("text");
@@ -502,7 +447,7 @@ namespace SeniorWepApiProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
             {
-                b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppRole", null)
+                b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                     .WithMany()
                     .HasForeignKey("RoleId")
                     .OnDelete(DeleteBehavior.Cascade)
@@ -529,7 +474,7 @@ namespace SeniorWepApiProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
             {
-                b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppRole", null)
+                b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
                     .WithMany()
                     .HasForeignKey("RoleId")
                     .OnDelete(DeleteBehavior.Cascade)
@@ -551,61 +496,15 @@ namespace SeniorWepApiProject.Migrations
                     .IsRequired();
             });
 
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.Address", b =>
-            {
-                b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "AppUser")
-                    .WithMany("Addresses")
-                    .HasForeignKey("AppUserId");
-            });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.City", b =>
-            {
-                b.HasOne("SeniorWebApiProject.Domain.LocationModels.Address", "Address")
-                    .WithOne("City")
-                    .HasForeignKey("SeniorWebApiProject.Domain.LocationModels.City", "AddressId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-            });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.District", b =>
-            {
-                b.HasOne("SeniorWebApiProject.Domain.LocationModels.Address", "Address")
-                    .WithOne("District")
-                    .HasForeignKey("SeniorWebApiProject.Domain.LocationModels.District", "AddressId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-
-                b.HasOne("SeniorWebApiProject.Domain.LocationModels.City", "City")
-                    .WithMany("Districts")
-                    .HasForeignKey("CityId");
-            });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.LocationModels.Neighborhood", b =>
-            {
-                b.HasOne("SeniorWebApiProject.Domain.LocationModels.Address", "Address")
-                    .WithOne("Neighborhood")
-                    .HasForeignKey("SeniorWebApiProject.Domain.LocationModels.Neighborhood", "AddressId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
-
-                b.HasOne("SeniorWebApiProject.Domain.LocationModels.District", "District")
-                    .WithMany("Neighborhoods")
-                    .HasForeignKey("DistrictId");
-            });
-
             modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.Message", b =>
             {
                 b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "RecieverUser")
                     .WithMany("InComingMessages")
-                    .HasForeignKey("RecieverUserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    .HasForeignKey("RecieverUserId");
 
                 b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "SenderUser")
                     .WithMany("OutgoingMessages")
-                    .HasForeignKey("SenderUserId")
-                    .OnDelete(DeleteBehavior.Cascade)
-                    .IsRequired();
+                    .HasForeignKey("SenderUserId");
             });
 
             modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.UserAbility", b =>
@@ -638,9 +537,23 @@ namespace SeniorWepApiProject.Migrations
                     .IsRequired();
             });
 
-            modelBuilder.Entity("SeniorWepApiProject.Domain.Swap.Swap", b =>
+            modelBuilder.Entity("SeniorWepApiProject.Domain.Address", b =>
             {
-                b.HasOne("SeniorWebApiProject.Domain.LocationModels.Address", "Address")
+                b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "AppUser")
+                    .WithMany("Addresses")
+                    .HasForeignKey("AppUserId");
+            });
+
+            modelBuilder.Entity("SeniorWepApiProject.Domain.RefreshToken", b =>
+            {
+                b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "User")
+                    .WithMany()
+                    .HasForeignKey("UserId");
+            });
+
+            modelBuilder.Entity("SeniorWepApiProject.Domain.Swap", b =>
+            {
+                b.HasOne("SeniorWepApiProject.Domain.Address", "Address")
                     .WithMany("Swaps")
                     .HasForeignKey("AddressId");
 

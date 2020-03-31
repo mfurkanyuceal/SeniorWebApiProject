@@ -1,17 +1,19 @@
-using System.Collections.Generic;
 using System.Net;
 using System.Text;
+using AutoMapper;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using SeniorWepApiProject.Authorization;
+using SeniorWepApiProject.Filters;
 using SeniorWepApiProject.Options;
-using SeniorWepApiProject.Services.Location;
-using SeniorWepApiProject.Services.Swap;
-using SeniorWepApiProject.Services.User;
+using SeniorWepApiProject.Services;
 
 namespace SeniorWepApiProject.Installers
 {
@@ -30,10 +32,25 @@ namespace SeniorWepApiProject.Installers
             services.AddSingleton(jwtSettings);
 
             services.AddScoped<IUserService, UserService>();
-            services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<ISwapService, SwapService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+            services.AddMvc(options => { options.Filters.Add<ValidationFilter>(); })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                .AddFluentValidation(mvcConfiguration =>
+                    mvcConfiguration.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                RequireExpirationTime = false,
+                ValidateLifetime = true
+            };
+
+            services.AddSingleton(tokenValidationParameters);
 
             services.AddAuthentication(x =>
                 {
@@ -44,48 +61,33 @@ namespace SeniorWepApiProject.Installers
                 .AddJwtBearer(x =>
                 {
                     x.SaveToken = true;
-                    x.TokenValidationParameters = new TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtSettings.Secret)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false,
-                        RequireExpirationTime = false,
-                        ValidateLifetime = true
-                    };
+                    x.TokenValidationParameters = tokenValidationParameters;
                 });
 
-            services.AddSwaggerGen(x =>
+
+            services.AddAuthorization(
+                /*
+                options =>
             {
-                x.SwaggerDoc("v1", new OpenApiInfo {Title = "SeniorWebProject API", Version = "v1"});
+                //Aşırı Hoş bir şey :) Authorization Klasörü bunun için var 
+                
+                options.AddPolicy("MustWorkForYuceal",
+                    policy => policy.AddRequirements(new WorksForCompanyRequirement("yuceal.com")));
+            }
+                */
+            );
 
-                var security = new Dictionary<string, IEnumerable<string>>
-                {
-                    {"Bearer", new string[0]}
-                };
+            services.AddSingleton<IAuthorizationHandler, WorksForCompanyHandler>();
 
-                x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-                {
-                    Description = "JWT Authorization header using the bearer scheme",
-                    Name = "Authorization",
-                    In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.ApiKey
-                });
 
-                x.AddSecurityRequirement(new OpenApiSecurityRequirement
-                {
-                    {
-                        new OpenApiSecurityScheme
-                        {
-                            Reference = new OpenApiReference
-                            {
-                                Id = "Bearer",
-                                Type = ReferenceType.SecurityScheme
-                            }
-                        },
-                        new List<string>()
-                    }
-                });
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddSingleton<IUriService>(provider =>
+            {
+                var accessor = provider.GetRequiredService<IHttpContextAccessor>();
+                var request = accessor.HttpContext.Request;
+                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent(), "/");
+                return new UriService(absoluteUri);
             });
         }
     }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,8 +14,8 @@ namespace SeniorWepApiProject.Installers
             services.AddDbContext<DataContext>(options =>
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<AppUser, AppRole>(option => { option.User.RequireUniqueEmail = true; })
-                .AddEntityFrameworkStores<DataContext>();
+            services.AddIdentityCore<AppUser>(option => { option.User.RequireUniqueEmail = true; })
+                .AddRoles<IdentityRole>().AddEntityFrameworkStores<DataContext>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();

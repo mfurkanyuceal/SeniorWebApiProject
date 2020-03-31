@@ -2,15 +2,15 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SeniorWepApiProject.Contracts.V1;
-using SeniorWepApiProject.Controllers.V1.Requests.User;
-using SeniorWepApiProject.Controllers.V1.Responses.Auth;
-using SeniorWepApiProject.Controllers.V1.Responses.User;
+using SeniorWepApiProject.Contracts.V1.Requests;
+using SeniorWepApiProject.Contracts.V1.Responses;
 using SeniorWepApiProject.Domain.AppUserModels;
-using SeniorWepApiProject.Services.User;
+using SeniorWepApiProject.Services;
 
 namespace SeniorWepApiProject.Controllers.V1
 {
@@ -25,7 +25,7 @@ namespace SeniorWepApiProject.Controllers.V1
             _environment = environment;
         }
 
-        [HttpPost(ApiRoutes.User.Register)]
+        [HttpPost(ApiRoutes.UserRoutes.Register)]
         public async Task<IActionResult> Register([FromBody] UserRegistrationRequest request)
         {
             if (!ModelState.IsValid)
@@ -49,11 +49,12 @@ namespace SeniorWepApiProject.Controllers.V1
 
             return Ok(new AuthSuccessResponse
             {
-                Token = authResponse.User.Token
+                Token = authResponse.User.Token,
+                RefreshToken = authResponse.RefreshToken
             });
         }
 
-        [HttpPost(ApiRoutes.User.Login)]
+        [HttpPost(ApiRoutes.UserRoutes.Login)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
             var authResponse = await _userService.LoginAsync(request.EmailOrUserName, request.Password);
@@ -68,11 +69,53 @@ namespace SeniorWepApiProject.Controllers.V1
 
             return Ok(new AuthSuccessResponse
             {
-                Token = authResponse.User.Token
+                Token = authResponse.User.Token,
+                RefreshToken = authResponse.RefreshToken
             });
         }
 
-        [HttpPut(ApiRoutes.User.Update)]
+        [HttpPost(ApiRoutes.UserRoutes.LoginWithFacebook)]
+        public async Task<IActionResult> LoginWithFacebook([FromBody] UserFacebookAuthRequest request)
+        {
+            var authResponse = await _userService.LoginWithFacebookAsync(request.AccessToken);
+
+            if (!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+                });
+            }
+
+            return Ok(new AuthSuccessResponse
+            {
+                Token = authResponse.User.Token,
+                RefreshToken = authResponse.RefreshToken
+            });
+        }
+
+
+        [HttpPost(ApiRoutes.UserRoutes.Refresh)]
+        public async Task<IActionResult> Login([FromBody] RefreshTokenRequest request)
+        {
+            var authResponse = await _userService.RefreshTokenAsync(request.Token, request.RefreshToken);
+
+            if (!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+                });
+            }
+
+            return Ok(new AuthSuccessResponse
+            {
+                Token = authResponse.User.Token,
+                RefreshToken = authResponse.RefreshToken
+            });
+        }
+
+        [HttpPut(ApiRoutes.UserRoutes.Update)]
         public async Task<IActionResult> Update([FromBody] UserUpdateRequest request)
         {
             var updateResponse = await _userService.UpdateAsync(request.User);
@@ -91,7 +134,7 @@ namespace SeniorWepApiProject.Controllers.V1
             });
         }
 
-        [HttpDelete(ApiRoutes.User.Delete)]
+        [HttpDelete(ApiRoutes.UserRoutes.Delete)]
         public async Task<IActionResult> Delete([FromBody] UserDeleteRequest request)
         {
             var deleteResponse = await _userService.DeleteAsync(request.User);
@@ -107,7 +150,7 @@ namespace SeniorWepApiProject.Controllers.V1
             return NoContent();
         }
 
-        [HttpGet(ApiRoutes.User.Get)]
+        [HttpGet(ApiRoutes.UserRoutes.Get)]
         public IActionResult Get(string userId)
         {
             var user = _userService.GetUserByIdAsync(userId);
@@ -120,7 +163,8 @@ namespace SeniorWepApiProject.Controllers.V1
             return Ok(user);
         }
 
-        [HttpGet(ApiRoutes.User.GetAll)]
+        [HttpGet(ApiRoutes.UserRoutes.GetAll)]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAll()
         {
             var list = await _userService.GetUsersAsync();
@@ -133,15 +177,22 @@ namespace SeniorWepApiProject.Controllers.V1
             return Ok(list);
         }
 
-        [HttpPost(ApiRoutes.User.UploadPhoto)]
-        public async Task<IActionResult> UploadPhoto(AppUser user, IFormFile file)
+        [HttpPost(ApiRoutes.UserRoutes.UploadPhoto)]
+        public async Task<IActionResult> UploadPhoto(string userId, IFormFile file)
         {
             try
             {
                 var name = file.FileName.Split(".");
-                var path = Path.Combine("/home/ubuntu/UsersPhoto", user.Id + "ProfilePhoto." + name[1]);
+                var path = Path.Combine("/home/ubuntu/UsersPhoto", userId + "ProfilePhoto." + name[1]);
 
-                user.UserPhotoUrl = user.Id + "ProfilePhoto." + name[1];
+                var user = _userService.GetUserByIdAsync(userId);
+
+                if (user == null)
+                {
+                    return BadRequest("Böyle bir kullanıcı bulunamadı");
+                }
+
+                user.UserPhotoUrl = userId + "ProfilePhoto." + name[1];
                 await _userService.UpdateAsync(user);
 
                 var stream = new FileStream(path, FileMode.Create);
@@ -155,7 +206,7 @@ namespace SeniorWepApiProject.Controllers.V1
         }
 
 
-        [HttpGet(ApiRoutes.User.ProfilePhoto)]
+        [HttpGet(ApiRoutes.UserRoutes.ProfilePhoto)]
         public IActionResult ProfilePhoto(AppUser user)
         {
             try
