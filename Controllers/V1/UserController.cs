@@ -241,7 +241,7 @@ namespace SeniorWepApiProject.Controllers.V1
             try
             {
                 var name = file.FileName.Split(".");
-                var path = Path.Combine("/home/ubuntu/UsersPhoto", userId + "ProfilePhoto." + name[1]);
+                var path = Path.Combine("/home/ubuntu/UsersPhoto", userId + "_ProfilePhoto." + name[1]);
 
                 var user = _userService.GetUserById(userId);
 
@@ -250,12 +250,12 @@ namespace SeniorWepApiProject.Controllers.V1
                     return BadRequest("Böyle bir kullanıcı bulunamadı");
                 }
 
-                user.UserPhotoUrl = userId + "ProfilePhoto." + name[1];
+                user.UserPhotoUrl = userId + "_ProfilePhoto." + name[1];
                 await _userService.UpdateAsync(user);
 
                 var stream = new FileStream(path, FileMode.Create);
                 await file.CopyToAsync(stream);
-                return Ok(new {lenth = file.Length, name = file.Name});
+                return Ok("Kullanıcı fotoğrafı güncellendi");
             }
             catch (Exception e)
             {
