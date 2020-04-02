@@ -36,8 +36,8 @@ namespace SeniorWepApiProject
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseKestrel();
-                    //webBuilder.UseUrls("http://172.31.84.140:5000");
-                    webBuilder.UseUrls("http://localhost:5000");
+                    webBuilder.UseUrls("http://172.31.84.140:5000");
+                    //webBuilder.UseUrls("http://localhost:5000");
                     webBuilder.UseStartup<Startup>();
                 });
     }
