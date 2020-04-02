@@ -288,6 +288,11 @@ namespace SeniorWepApiProject.Services
             return await _userManager.ResetPasswordAsync(user, modelToken, modelPassword);
         }
 
+        public async Task<AppUser> GetUserByUserNameAsync(string username)
+        {
+            return await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
+        }
+
         public async Task<AuthenticationResult> RegisterAsync(UserRegistrationRequest request)
         {
             var existingUser1 = await _userManager.FindByEmailAsync(request.Email);

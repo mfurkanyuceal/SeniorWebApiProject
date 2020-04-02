@@ -21,5 +21,6 @@ namespace SeniorWepApiProject.Services
         Task<AppUser> GetUserByEmailAsync(string email);
         Task<string> GeneratePasswordResetTokenAsync(AppUser user);
         Task<IdentityResult> ResetPasswordAsync(AppUser user, string modelToken, string modelPassword);
+        Task<AppUser> GetUserByUserNameAsync(string username);
     }
 }

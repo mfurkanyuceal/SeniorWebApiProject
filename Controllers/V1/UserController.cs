@@ -292,9 +292,16 @@ namespace SeniorWepApiProject.Controllers.V1
 
         [HttpPost(ApiRoutes.UserRoutes.ResetPassword)]
         [AllowAnonymous]
-        public async Task<IActionResult> SendResetPasswordLink([FromServices] IFluentEmail email, string emailAddress)
+        public async Task<IActionResult> SendResetPasswordLink([FromServices] IFluentEmail email,
+            string emailOrUsername)
         {
-            var user = await _userService.GetUserByEmailAsync(emailAddress);
+            var user = await _userService.GetUserByEmailAsync(emailOrUsername);
+
+            if (user == null)
+            {
+                user = await _userService.GetUserByUserNameAsync(emailOrUsername);
+            }
+
 
             if (user == null)
             {
@@ -306,7 +313,7 @@ namespace SeniorWepApiProject.Controllers.V1
                 , Request.Scheme);
 
             var emailResponse = await email
-                .To(emailAddress)
+                .To(user.Email)
                 .Subject("Swap App Parola Yenileme")
                 .Body("Parolanızı yenilemek için linke tıklayınız " +
                       $"{resetPasswordLink}")
