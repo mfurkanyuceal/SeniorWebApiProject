@@ -207,3 +207,15 @@
 /home/muhammedfurkan/SeniorProject/SeniorWepApiProject/obj/Debug/netcoreapp3.1/SeniorWepApiProject.pdb
 /home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.Bcl.HashCode.dll
 /home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Caching.Memory.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/FluentEmail.Core.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/FluentEmail.Razor.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/FluentEmail.Smtp.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Razor.Language.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.CodeAnalysis.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.CodeAnalysis.CSharp.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/Microsoft.CodeAnalysis.Razor.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/RazorLight.dll
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.Apple.dylib
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/bin/Debug/netcoreapp3.1/runtimes/osx.10.10-x64/native/System.Security.Cryptography.Native.OpenSsl.dylib
+/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/obj/Debug/netcoreapp3.1/Razor/Views/User/ResetPassword.cshtml.g.cs

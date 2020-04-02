@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Mail;
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -89,6 +90,25 @@ namespace SeniorWepApiProject.Installers
                 var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent(), "/");
                 return new UriService(absoluteUri);
             });
+
+            //Doğum Tarihi 1 Nisan 2002
+            //senior.project
+
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port = 587,
+                EnableSsl = true,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false,
+                Credentials = new NetworkCredential("swapapplicationmail@gmail.com", "senior.project")
+            };
+
+
+            services
+                .AddFluentEmail("swapapplicationmail@gmail.com")
+                .AddRazorRenderer()
+                .AddSmtpSender(smtp);
         }
     }
 }

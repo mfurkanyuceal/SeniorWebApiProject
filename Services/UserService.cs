@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using SeniorWepApiProject.Contracts.V1.Requests;
 using SeniorWepApiProject.Data;
 using SeniorWepApiProject.Domain;
 using SeniorWepApiProject.Domain.AppUserModels;
@@ -89,7 +90,16 @@ namespace SeniorWepApiProject.Services
 
         public async Task<AuthenticationResult> DeleteAsync(AppUser user)
         {
+            var refreshToken = await _context.RefreshTokens
+                .FirstOrDefaultAsync(x => x.User == user);
+
+            if (refreshToken != null)
+            {
+                _context.RefreshTokens.Remove(refreshToken);
+            }
+
             var result = await _userManager.DeleteAsync(user);
+
 
             if (result.Succeeded)
             {
@@ -108,7 +118,7 @@ namespace SeniorWepApiProject.Services
             }
         }
 
-        public AppUser GetUserByIdAsync(string userId)
+        public AppUser GetUserById(string userId)
         {
             var user = _userManager.Users.Include(x => x.Addresses)
                 .Include(x => x.UserAbilities).ThenInclude(x => x.Ability).Include(x => x.UserFancies)
@@ -118,6 +128,11 @@ namespace SeniorWepApiProject.Services
 
 
             return user;
+        }
+
+        public async Task<IdentityResult> ConfirmEmailAsync(AppUser user, string token)
+        {
+            return await _userManager.ConfirmEmailAsync(user, token);
         }
 
 
@@ -241,6 +256,7 @@ namespace SeniorWepApiProject.Services
             var token = tokenHandler.CreateToken(tokenDescriptor);
             user.Token = tokenHandler.WriteToken(token);
 
+            var emailConfirmToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var refreshToken = new RefreshToken
             {
                 JwtId = token.Id,
@@ -257,13 +273,24 @@ namespace SeniorWepApiProject.Services
                 Success = true,
                 User = user,
                 Token = tokenHandler.WriteToken(token),
-                RefreshToken = refreshToken.Token
+                RefreshToken = refreshToken.Token,
+                ConfirmEmailToken = emailConfirmToken,
             };
         }
 
-        public async Task<AuthenticationResult> RegisterAsync(string username, string email, string password)
+        public async Task<string> GeneratePasswordResetTokenAsync(AppUser user)
         {
-            var existingUser1 = await _userManager.FindByEmailAsync(email);
+            return await _userManager.GeneratePasswordResetTokenAsync(user);
+        }
+
+        public async Task<IdentityResult> ResetPasswordAsync(AppUser user, string modelToken, string modelPassword)
+        {
+            return await _userManager.ResetPasswordAsync(user, modelToken, modelPassword);
+        }
+
+        public async Task<AuthenticationResult> RegisterAsync(UserRegistrationRequest request)
+        {
+            var existingUser1 = await _userManager.FindByEmailAsync(request.Email);
 
             if (existingUser1 != null)
             {
@@ -273,7 +300,7 @@ namespace SeniorWepApiProject.Services
                 };
             }
 
-            var existingUser2 = await _userManager.FindByNameAsync(username);
+            var existingUser2 = await _userManager.FindByNameAsync(request.UserName);
 
             if (existingUser2 != null)
             {
@@ -287,17 +314,18 @@ namespace SeniorWepApiProject.Services
             var newUser = new AppUser
             {
                 Id = Guid.NewGuid().ToString(),
-                Email = email,
-                UserName = username,
+                Email = request.Email,
+                UserName = request.UserName,
             };
 
 
-            if (newUser.UserPhotoUrl.Equals(""))
+            if (string.IsNullOrEmpty(newUser.UserPhotoUrl))
             {
-                newUser.UserPhotoUrl = "defaultuser.png";
+                newUser.UserPhotoUrl = "DefaultUser.png";
             }
 
-            var createdUser = await _userManager.CreateAsync(newUser, password);
+
+            var createdUser = await _userManager.CreateAsync(newUser, request.Password);
 
             if (!createdUser.Succeeded)
             {
@@ -306,8 +334,6 @@ namespace SeniorWepApiProject.Services
                     Errors = createdUser.Errors.Select(x => x.Description)
                 };
             }
-
-            //await _userManager.AddClaimAsync(createdUser, new Claim("tags.view", "true"));
 
             return await GenerateAuthenticationResultForUserAsync(newUser);
         }
@@ -351,6 +377,11 @@ namespace SeniorWepApiProject.Services
             }
 
             return await GenerateAuthenticationResultForUserAsync(user);
+        }
+
+        public async Task<AppUser> GetUserByEmailAsync(string email)
+        {
+            return await _userManager.FindByEmailAsync(email);
         }
     }
 }

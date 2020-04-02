@@ -125,6 +125,10 @@
       <e p="Migrations" t="Include">
         <e p="20200331123714_InitialMigration.Designer.cs" t="Include" />
         <e p="20200331123714_InitialMigration.cs" t="Include" />
+        <e p="20200402173633_RefreshTokenSet.Designer.cs" t="Include" />
+        <e p="20200402173633_RefreshTokenSet.cs" t="Include" />
+        <e p="20200402173909_RefreshTokenSet2.Designer.cs" t="Include" />
+        <e p="20200402173909_RefreshTokenSet2.cs" t="Include" />
         <e p="DataContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -166,6 +170,9 @@
       <e p="Validators" t="Include">
         <e p="CreateSwapRequestValidator.cs" t="Include" />
       </e>
+      <e p="ViewModels" t="Include">
+        <e p="ResetPasswordModel.cs" t="Include" />
+      </e>
       <e p="Views" t="Include">
         <e p="Home" t="Include">
           <e p="Index.cshtml" t="Include" />
@@ -176,6 +183,9 @@
           <e p="_Layout.cshtml" t="Include" />
           <e p="_LoginPartial.cshtml" t="Include" />
           <e p="_ValidationScriptsPartial.cshtml" t="Include" />
+        </e>
+        <e p="User" t="Include">
+          <e p="ResetPassword.cshtml" t="Include" />
         </e>
         <e p="_ViewImports.cshtml" t="Include" />
         <e p="_ViewStart.cshtml" t="Include" />
@@ -193,10 +203,10 @@
       </e>
       <e p="packages" t="ExcludeRecursive" />
       <e p="wwwroot" t="Include">
+        <e p="DefaultUser.png" t="Include" />
         <e p="css" t="Include">
           <e p="site.css" t="Include" />
         </e>
-        <e p="defaultuser.png" t="Include" />
         <e p="favicon.ico" t="Include" />
         <e p="js" t="Include">
           <e p="site.js" t="Include" />

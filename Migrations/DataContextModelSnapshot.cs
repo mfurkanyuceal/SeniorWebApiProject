@@ -16,7 +16,7 @@ namespace SeniorWepApiProject.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .HasAnnotation("ProductVersion", "5.0.0-preview.2.20120.8")
+                .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -98,10 +98,12 @@ namespace SeniorWepApiProject.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
             {
                 b.Property<string>("LoginProvider")
-                    .HasColumnType("text");
+                    .HasColumnType("character varying(128)")
+                    .HasMaxLength(128);
 
                 b.Property<string>("ProviderKey")
-                    .HasColumnType("text");
+                    .HasColumnType("character varying(128)")
+                    .HasMaxLength(128);
 
                 b.Property<string>("ProviderDisplayName")
                     .HasColumnType("text");
@@ -138,10 +140,12 @@ namespace SeniorWepApiProject.Migrations
                     .HasColumnType("text");
 
                 b.Property<string>("LoginProvider")
-                    .HasColumnType("text");
+                    .HasColumnType("character varying(128)")
+                    .HasMaxLength(128);
 
                 b.Property<string>("Name")
-                    .HasColumnType("text");
+                    .HasColumnType("character varying(128)")
+                    .HasMaxLength(128);
 
                 b.Property<string>("Value")
                     .HasColumnType("text");
@@ -372,6 +376,7 @@ namespace SeniorWepApiProject.Migrations
             modelBuilder.Entity("SeniorWepApiProject.Domain.RefreshToken", b =>
             {
                 b.Property<string>("Token")
+                    .ValueGeneratedOnAdd()
                     .HasColumnType("text");
 
                 b.Property<DateTime>("CreationDate")

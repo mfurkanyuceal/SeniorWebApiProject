@@ -66,6 +66,7 @@ namespace SeniorWepApiProject.Contracts.V1
             public const string Delete = Base + "/user/delete";
             public const string UploadPhoto = Base + "/user/uploadphoto";
             public const string ProfilePhoto = Base + "/user/profilephoto";
+            public const string ResetPassword = Base + "/user/sendresetpasswordlink/{emailAddress}";
             public const string Refresh = Base + "/user/refresh";
         }
     }
