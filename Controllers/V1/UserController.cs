@@ -11,7 +11,6 @@ using Microsoft.Extensions.Logging;
 using SeniorWepApiProject.Contracts.V1;
 using SeniorWepApiProject.Contracts.V1.Requests;
 using SeniorWepApiProject.Contracts.V1.Responses;
-using SeniorWepApiProject.Domain.AppUserModels;
 using SeniorWepApiProject.Services;
 using SeniorWepApiProject.ViewModels;
 
@@ -265,10 +264,17 @@ namespace SeniorWepApiProject.Controllers.V1
 
 
         [HttpGet(ApiRoutes.UserRoutes.ProfilePhoto)]
-        public IActionResult ProfilePhoto(AppUser user)
+        public IActionResult ProfilePhoto(string userId)
         {
             try
             {
+                var user = _userService.GetUserById(userId);
+
+                if (user == null)
+                {
+                    return BadRequest("Böyle bir kullanıcı bulunamadı");
+                }
+
                 string path = "";
 
                 if (user.UserPhotoUrl.Equals("defaultuser.png"))
