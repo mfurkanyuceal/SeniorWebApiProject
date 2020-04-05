@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWepApiProject.Domain
 {

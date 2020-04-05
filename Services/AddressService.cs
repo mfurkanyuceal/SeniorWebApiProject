@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SeniorWepApiProject.Data;
+using SeniorWepApiProject.DbContext;
 using SeniorWepApiProject.Domain;
 
 namespace SeniorWepApiProject.Services

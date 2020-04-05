@@ -1,4 +1,4 @@
-using SeniorWepApiProject.Domain.AppUserModels;
+using SeniorWepApiProject.Domain;
 
 namespace SeniorWepApiProject.Contracts.V1.Responses
 {

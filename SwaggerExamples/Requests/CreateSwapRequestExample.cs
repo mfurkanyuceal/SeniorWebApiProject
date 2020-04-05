@@ -1,7 +1,6 @@
 using System;
 using SeniorWepApiProject.Contracts.V1.Requests;
 using SeniorWepApiProject.Domain;
-using SeniorWepApiProject.Domain.AppUserModels;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace SeniorWepApiProject.SwaggerExamples.Requests

@@ -1,5 +1,4 @@
 using SeniorWepApiProject.Domain;
-using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWepApiProject.Contracts.V1.Requests
 {

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SeniorWepApiProject.Contracts.V1.Requests;
 using SeniorWepApiProject.Domain;
-using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWepApiProject.Services
 {

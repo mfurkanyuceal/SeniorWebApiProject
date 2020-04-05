@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using SeniorWepApiProject.Domain.AppUserModels;
 
 namespace SeniorWepApiProject.Domain
 {

@@ -1,7 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using SeniorWepApiProject.Domain.AppUserModels;
 
-namespace SeniorWebApiProject.Domain.UserModels
+namespace SeniorWepApiProject.Domain
 {
     public class Message
     {

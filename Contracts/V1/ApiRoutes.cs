@@ -19,32 +19,6 @@ namespace SeniorWepApiProject.Contracts.V1
             public const string Create = Base + "/swaps";
         }
 
-        public static class CityRoutes
-        {
-            public const string GetAll = Base + Location + "/cities";
-            public const string Get = Base + Location + "/cities/{cityId}";
-            public const string Update = Base + Location + "/cities/{cityId}";
-            public const string Delete = Base + Location + "/cities/{cityId}";
-            public const string Create = Base + Location + "/cities";
-        }
-
-        public static class DistrictRoutes
-        {
-            public const string GetAll = Base + Location + "/districts/{cityId}";
-            public const string Get = Base + Location + "/districts/{districtId}";
-            public const string Update = Base + Location + "/districts/{districtId}";
-            public const string Delete = Base + Location + "/districts/{districtId}";
-            public const string Create = Base + Location + "/districts";
-        }
-
-        public static class NeighborhoodRoutes
-        {
-            public const string GetAll = Base + Location + "/neighborhoods/{districtId}";
-            public const string Get = Base + Location + "/neighborhoods/{neighborhoodId}";
-            public const string Update = Base + Location + "/neighborhoods/{neighborhoodId}";
-            public const string Delete = Base + Location + "/neighborhoods/{neighborhoodId}";
-            public const string Create = Base + Location + "/neighborhoods";
-        }
 
         public static class AddressRoutes
         {
@@ -55,9 +29,18 @@ namespace SeniorWepApiProject.Contracts.V1
             public const string Create = Base + Location + "/addresses";
         }
 
+        public static class FieldOfInterestRoutes
+        {
+            public const string GetAll = Base + "/fieldOfInterests";
+            public const string Get = Base + "/fieldOfInterest/{fieldOfInterestName}";
+            public const string Update = Base + "/fieldOfInterest/{fieldOfInterestName}";
+            public const string Delete = Base + "/fieldOfInterest/{fieldOfInterestName}";
+            public const string Create = Base + "/fieldOfInterest";
+        }
+
         public static class UserRoutes
         {
-            public const string GetAll = Base + Location + "/users";
+            public const string GetAll = Base + "/users";
             public const string Login = Base + "/user/login";
             public const string LoginWithFacebook = Base + "/user/loginwithfacebook";
             public const string Get = Base + "/user/{userId}";

@@ -35,6 +35,7 @@ namespace SeniorWepApiProject.Installers
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<ISwapService, SwapService>();
+            services.AddScoped<IFieldOfInterestService, FieldOfInterestService>();
 
             services.AddMvc(options => { options.Filters.Add<ValidationFilter>(); })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_3_0)

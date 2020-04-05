@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SeniorWepApiProject.Data;
-using SeniorWepApiProject.Domain.AppUserModels;
+using SeniorWepApiProject.DbContext;
+using SeniorWepApiProject.Domain;
 
 namespace SeniorWepApiProject.Installers
 {

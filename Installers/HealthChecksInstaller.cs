@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SeniorWepApiProject.Contracts.HealthChecks;
-using SeniorWepApiProject.Data;
+using SeniorWepApiProject.DbContext;
 
 namespace SeniorWepApiProject.Installers
 {

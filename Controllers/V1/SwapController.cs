@@ -80,7 +80,7 @@ namespace SeniorWepApiProject.Controllers.V1
             //
             // var locationUrl = baseUrl + "/" + ApiRoutes.AddressRoutes.Get.Replace("{swapId}", swap.Id.ToString());
 
-            var locationUri = _uriService.GetSwapUri(swap.Id.ToString());
+            var locationUri = _uriService.GetSwapUri(swap.Id);
 
 
             return Created(locationUri, new Response<SwapResponse>(_mapper.Map<SwapResponse>(swap)));

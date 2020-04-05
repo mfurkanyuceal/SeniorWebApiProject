@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using SeniorWepApiProject.Contracts.V1.Responses;
 using SeniorWepApiProject.Domain;
-using SeniorWepApiProject.Domain.AppUserModels;
 using Swashbuckle.AspNetCore.Filters;
 
 namespace SeniorWepApiProject.SwaggerExamples.Responses

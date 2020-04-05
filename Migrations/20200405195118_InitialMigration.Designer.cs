@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using SeniorWepApiProject.Data;
+using SeniorWepApiProject.DbContext;
 
 namespace SeniorWepApiProject.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200402173909_RefreshTokenSet2")]
-    partial class RefreshTokenSet2
+    [Migration("20200405195118_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -155,98 +155,6 @@ namespace SeniorWepApiProject.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.Ability", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Abilities");
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.Fancy", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Fancies");
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.Message", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Context")
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("ReadTime")
-                        .HasColumnType("text");
-
-                    b.Property<string>("RecieverUserId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SendTime")
-                        .HasColumnType("text");
-
-                    b.Property<string>("SenderUserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecieverUserId");
-
-                    b.HasIndex("SenderUserId");
-
-                    b.ToTable("Messages");
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.UserAbility", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("AbilityId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "AbilityId");
-
-                    b.HasIndex("AbilityId");
-
-                    b.ToTable("UserAbilities");
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.UserFancy", b =>
-                {
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.Property<int>("FancyId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("UserId", "FancyId");
-
-                    b.HasIndex("FancyId");
-
-                    b.ToTable("UserFancies");
-                });
-
             modelBuilder.Entity("SeniorWepApiProject.Domain.Address", b =>
                 {
                     b.Property<int>("Id")
@@ -273,7 +181,7 @@ namespace SeniorWepApiProject.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("SeniorWepApiProject.Domain.AppUserModels.AppUser", b =>
+            modelBuilder.Entity("SeniorWepApiProject.Domain.AppUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("text");
@@ -298,7 +206,7 @@ namespace SeniorWepApiProject.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
                         .HasColumnType("text");
 
                     b.Property<string>("Gender")
@@ -314,6 +222,9 @@ namespace SeniorWepApiProject.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("LastLogoutDate")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LastName")
                         .HasColumnType("text");
 
                     b.Property<string>("LastUpdateDate")
@@ -368,6 +279,48 @@ namespace SeniorWepApiProject.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("SeniorWepApiProject.Domain.FieldOfInterest", b =>
+                {
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Name");
+
+                    b.ToTable("FieldOfInterests");
+                });
+
+            modelBuilder.Entity("SeniorWepApiProject.Domain.Message", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Context")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("ReadTime")
+                        .HasColumnType("text");
+
+                    b.Property<string>("RecieverUserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SendTime")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SenderUserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RecieverUserId");
+
+                    b.HasIndex("SenderUserId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("SeniorWepApiProject.Domain.RefreshToken", b =>
@@ -447,6 +400,26 @@ namespace SeniorWepApiProject.Migrations
                     b.ToTable("Swaps");
                 });
 
+            modelBuilder.Entity("SeniorWepApiProject.Domain.UserFieldOfInterest", b =>
+                {
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("FieldOfInterestName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("AppUserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId", "FieldOfInterestName");
+
+                    b.HasIndex("AppUserId");
+
+                    b.HasIndex("FieldOfInterestName");
+
+                    b.ToTable("UserFieldOfInterests");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -458,7 +431,7 @@ namespace SeniorWepApiProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", null)
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -467,7 +440,7 @@ namespace SeniorWepApiProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", null)
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -482,7 +455,7 @@ namespace SeniorWepApiProject.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", null)
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -491,49 +464,8 @@ namespace SeniorWepApiProject.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", null)
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", null)
                         .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.Message", b =>
-                {
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "RecieverUser")
-                        .WithMany("InComingMessages")
-                        .HasForeignKey("RecieverUserId");
-
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "SenderUser")
-                        .WithMany("OutgoingMessages")
-                        .HasForeignKey("SenderUserId");
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.UserAbility", b =>
-                {
-                    b.HasOne("SeniorWebApiProject.Domain.UserModels.Ability", "Ability")
-                        .WithMany("UserAbilities")
-                        .HasForeignKey("AbilityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "User")
-                        .WithMany("UserAbilities")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SeniorWebApiProject.Domain.UserModels.UserFancy", b =>
-                {
-                    b.HasOne("SeniorWebApiProject.Domain.UserModels.Fancy", "Fancy")
-                        .WithMany("UserFancies")
-                        .HasForeignKey("FancyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "User")
-                        .WithMany("UserFancies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -541,14 +473,25 @@ namespace SeniorWepApiProject.Migrations
 
             modelBuilder.Entity("SeniorWepApiProject.Domain.Address", b =>
                 {
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "AppUser")
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "AppUser")
                         .WithMany("Addresses")
                         .HasForeignKey("AppUserId");
                 });
 
+            modelBuilder.Entity("SeniorWepApiProject.Domain.Message", b =>
+                {
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "RecieverUser")
+                        .WithMany("InComingMessages")
+                        .HasForeignKey("RecieverUserId");
+
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "SenderUser")
+                        .WithMany("OutgoingMessages")
+                        .HasForeignKey("SenderUserId");
+                });
+
             modelBuilder.Entity("SeniorWepApiProject.Domain.RefreshToken", b =>
                 {
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "User")
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
                 });
@@ -559,13 +502,32 @@ namespace SeniorWepApiProject.Migrations
                         .WithMany("Swaps")
                         .HasForeignKey("AddressId");
 
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "RecieverUser")
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "RecieverUser")
                         .WithMany("InComingSwaps")
                         .HasForeignKey("RecieverUserId");
 
-                    b.HasOne("SeniorWepApiProject.Domain.AppUserModels.AppUser", "SenderUser")
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "SenderUser")
                         .WithMany("OutgoingSwaps")
                         .HasForeignKey("SenderUserId");
+                });
+
+            modelBuilder.Entity("SeniorWepApiProject.Domain.UserFieldOfInterest", b =>
+                {
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", null)
+                        .WithMany("UserFancies")
+                        .HasForeignKey("AppUserId");
+
+                    b.HasOne("SeniorWepApiProject.Domain.FieldOfInterest", "FieldOfInterest")
+                        .WithMany("UserFieldOfInterests")
+                        .HasForeignKey("FieldOfInterestName")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SeniorWepApiProject.Domain.AppUser", "User")
+                        .WithMany("UserAbilities")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

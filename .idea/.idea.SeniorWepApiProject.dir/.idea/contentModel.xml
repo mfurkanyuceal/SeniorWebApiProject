@@ -29,9 +29,8 @@
           <e p="ApiRoutes.cs" t="Include" />
           <e p="ErrorModel.cs" t="Include" />
           <e p="Requests" t="Include">
-            <e p="CreateAbilityRequest.cs" t="Include" />
             <e p="CreateAddressRequest.cs" t="Include" />
-            <e p="CreateFancyRequest.cs" t="Include" />
+            <e p="CreateFieldOfInterestRequest.cs" t="Include" />
             <e p="CreateSwapRequest.cs" t="Include" />
             <e p="Queries" t="Include">
               <e p="GetAllSwapsQuery.cs" t="Include" />
@@ -40,7 +39,7 @@
             <e p="RefreshTokenRequest.cs" t="Include" />
             <e p="UpdateAbilityRequest.cs" t="Include" />
             <e p="UpdateAddressRequest.cs" t="Include" />
-            <e p="UpdateFancyRequest.cs" t="Include" />
+            <e p="UpdateFieldOfInterestRequest.cs" t="Include" />
             <e p="UpdateSwapRequest.cs" t="Include" />
             <e p="UserDeleteRequest.cs" t="Include" />
             <e p="UserFacebookAuthRequest.cs" t="Include" />
@@ -55,7 +54,7 @@
             <e p="AuthSuccessResponse.cs" t="Include" />
             <e p="DeleteFailedRequest.cs" t="Include" />
             <e p="ErrorResponse.cs" t="Include" />
-            <e p="FancyResponse.cs" t="Include" />
+            <e p="FieldOfInterestResponse.cs" t="Include" />
             <e p="PagedResponse.cs" t="Include" />
             <e p="Response.cs" t="Include" />
             <e p="SwapResponse.cs" t="Include" />
@@ -67,31 +66,27 @@
       <e p="Controllers" t="Include">
         <e p="V1" t="Include">
           <e p="AddressController.cs" t="Include" />
+          <e p="FieldOfInterestController.cs" t="Include" />
           <e p="HomeController.cs" t="Include" />
           <e p="SwapController.cs" t="Include" />
           <e p="UserController.cs" t="Include" />
         </e>
       </e>
-      <e p="Data" t="Include">
+      <e p="DbContext" t="Include">
         <e p="DataContext.cs" t="Include" />
       </e>
       <e p="Domain" t="Include">
         <e p="Address.cs" t="Include" />
-        <e p="AppUserModels" t="Include">
-          <e p="AppUser.cs" t="Include" />
-        </e>
+        <e p="AppUser.cs" t="Include" />
         <e p="AuthenticationResult.cs" t="Include" />
+        <e p="FieldOfInterest.cs" t="Include" />
         <e p="GetAllSwapsFilter.cs" t="Include" />
+        <e p="Message.cs" t="Include" />
         <e p="PaginationFilter.cs" t="Include" />
         <e p="RefreshToken.cs" t="Include" />
         <e p="Swap.cs" t="Include" />
-        <e p="UserModels" t="Include">
-          <e p="Ability.cs" t="Include" />
-          <e p="Fancy.cs" t="Include" />
-          <e p="Message.cs" t="Include" />
-          <e p="UserAbility.cs" t="Include" />
-          <e p="UserFancy.cs" t="Include" />
-        </e>
+        <e p="UserFieldOfInterest.cs" t="Include" />
+        <e p="UserModels" t="Include" />
       </e>
       <e p="Extensions" t="Include">
         <e p="GeneralExtensions.cs" t="Include" />
@@ -123,12 +118,8 @@
         <e p="RequestToDomainProfile.cs" t="Include" />
       </e>
       <e p="Migrations" t="Include">
-        <e p="20200331123714_InitialMigration.Designer.cs" t="Include" />
-        <e p="20200331123714_InitialMigration.cs" t="Include" />
-        <e p="20200402173633_RefreshTokenSet.Designer.cs" t="Include" />
-        <e p="20200402173633_RefreshTokenSet.cs" t="Include" />
-        <e p="20200402173909_RefreshTokenSet2.Designer.cs" t="Include" />
-        <e p="20200402173909_RefreshTokenSet2.cs" t="Include" />
+        <e p="20200405195118_InitialMigration.Designer.cs" t="Include" />
+        <e p="20200405195118_InitialMigration.cs" t="Include" />
         <e p="DataContextModelSnapshot.cs" t="Include" />
       </e>
       <e p="Models" t="Include">
@@ -148,8 +139,10 @@
       <e p="Services" t="Include">
         <e p="AddressService.cs" t="Include" />
         <e p="FacebookAuthService.cs" t="Include" />
+        <e p="FieldOfInterestService.cs" t="Include" />
         <e p="IAddressService.cs" t="Include" />
         <e p="IFacebookAuthService.cs" t="Include" />
+        <e p="IFieldOfInterestService.cs" t="Include" />
         <e p="IResponseCacheService.cs" t="Include" />
         <e p="ISwapService.cs" t="Include" />
         <e p="IUriService.cs" t="Include" />

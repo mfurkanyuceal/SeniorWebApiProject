@@ -9,9 +9,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using SeniorWepApiProject.Contracts.V1.Requests;
-using SeniorWepApiProject.Data;
+using SeniorWepApiProject.DbContext;
 using SeniorWepApiProject.Domain;
-using SeniorWepApiProject.Domain.AppUserModels;
 using SeniorWepApiProject.Options;
 
 namespace SeniorWepApiProject.Services
@@ -121,8 +120,8 @@ namespace SeniorWepApiProject.Services
         public AppUser GetUserById(string userId)
         {
             var user = _userManager.Users.Include(x => x.Addresses)
-                .Include(x => x.UserAbilities).ThenInclude(x => x.Ability).Include(x => x.UserFancies)
-                .ThenInclude(x => x.Fancy).Include(x => x.OutgoingSwaps).Include(x => x.OutgoingMessages)
+                .Include(x => x.UserAbilities).ThenInclude(x => x.FieldOfInterest).Include(x => x.UserFancies)
+                .ThenInclude(x => x.FieldOfInterest).Include(x => x.OutgoingSwaps).Include(x => x.OutgoingMessages)
                 .Include(x => x.InComingSwaps).Include(x => x.InComingMessages)
                 .FirstOrDefault(x => x.Id == userId);
 
@@ -321,7 +320,26 @@ namespace SeniorWepApiProject.Services
                 Id = Guid.NewGuid().ToString(),
                 Email = request.Email,
                 UserName = request.UserName,
+                Gender = request.Gender,
+                BirthDate = request.BirthDate,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
             };
+
+            List<Address> addresses = new List<Address>();
+
+            foreach (var addressRequest in request.Addresses)
+            {
+                addresses.Add(new Address
+                {
+                    Latitude = addressRequest.Latitude,
+                    Description = addressRequest.Description,
+                    Longitude = addressRequest.Longitude,
+                    AppUser = newUser,
+                });
+            }
+
+            newUser.Addresses = addresses;
 
 
             if (string.IsNullOrEmpty(newUser.UserPhotoUrl))

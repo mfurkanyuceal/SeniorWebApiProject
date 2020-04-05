@@ -9,17 +9,6 @@ namespace SeniorWepApiProject.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Abilities",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true)
-                },
-                constraints: table => { table.PrimaryKey("PK_Abilities", x => x.Id); });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
@@ -49,7 +38,8 @@ namespace SeniorWepApiProject.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FullName = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     BirthDate = table.Column<string>(nullable: true),
                     Gender = table.Column<string>(nullable: true),
                     LastLoginDate = table.Column<string>(nullable: true),
@@ -64,15 +54,12 @@ namespace SeniorWepApiProject.Migrations
                 constraints: table => { table.PrimaryKey("PK_AspNetUsers", x => x.Id); });
 
             migrationBuilder.CreateTable(
-                name: "Fancies",
+                name: "FieldOfInterests",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy",
-                            NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
-                constraints: table => { table.PrimaryKey("PK_Fancies", x => x.Id); });
+                constraints: table => { table.PrimaryKey("PK_FieldOfInterests", x => x.Name); });
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
@@ -145,8 +132,8 @@ namespace SeniorWepApiProject.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -190,8 +177,8 @@ namespace SeniorWepApiProject.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -258,47 +245,30 @@ namespace SeniorWepApiProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserAbilities",
+                name: "UserFieldOfInterests",
                 columns: table => new
                 {
-                    AbilityId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
+                    FieldOfInterestName = table.Column<string>(nullable: false),
+                    UserId = table.Column<string>(nullable: false),
+                    AppUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAbilities", x => new {x.UserId, x.AbilityId});
+                    table.PrimaryKey("PK_UserFieldOfInterests", x => new {x.UserId, x.FieldOfInterestName});
                     table.ForeignKey(
-                        name: "FK_UserAbilities_Abilities_AbilityId",
-                        column: x => x.AbilityId,
-                        principalTable: "Abilities",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserAbilities_AspNetUsers_UserId",
-                        column: x => x.UserId,
+                        name: "FK_UserFieldOfInterests_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserFancies",
-                columns: table => new
-                {
-                    FancyId = table.Column<int>(nullable: false),
-                    UserId = table.Column<string>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserFancies", x => new {x.UserId, x.FancyId});
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_UserFancies_Fancies_FancyId",
-                        column: x => x.FancyId,
-                        principalTable: "Fancies",
-                        principalColumn: "Id",
+                        name: "FK_UserFieldOfInterests_FieldOfInterests_FieldOfInterestName",
+                        column: x => x.FieldOfInterestName,
+                        principalTable: "FieldOfInterests",
+                        principalColumn: "Name",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserFancies_AspNetUsers_UserId",
+                        name: "FK_UserFieldOfInterests_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -417,14 +387,14 @@ namespace SeniorWepApiProject.Migrations
                 column: "SenderUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAbilities_AbilityId",
-                table: "UserAbilities",
-                column: "AbilityId");
+                name: "IX_UserFieldOfInterests_AppUserId",
+                table: "UserFieldOfInterests",
+                column: "AppUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserFancies_FancyId",
-                table: "UserFancies",
-                column: "FancyId");
+                name: "IX_UserFieldOfInterests_FieldOfInterestName",
+                table: "UserFieldOfInterests",
+                column: "FieldOfInterestName");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -454,10 +424,7 @@ namespace SeniorWepApiProject.Migrations
                 name: "Swaps");
 
             migrationBuilder.DropTable(
-                name: "UserAbilities");
-
-            migrationBuilder.DropTable(
-                name: "UserFancies");
+                name: "UserFieldOfInterests");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -466,10 +433,7 @@ namespace SeniorWepApiProject.Migrations
                 name: "Addresses");
 
             migrationBuilder.DropTable(
-                name: "Abilities");
-
-            migrationBuilder.DropTable(
-                name: "Fancies");
+                name: "FieldOfInterests");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

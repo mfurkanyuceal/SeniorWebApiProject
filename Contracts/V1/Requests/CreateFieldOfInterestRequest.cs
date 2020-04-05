@@ -1,6 +1,6 @@
 namespace SeniorWepApiProject.Contracts.V1.Requests
 {
-    public class CreateFancyRequest
+    public class CreateFieldOfInterestRequest
     {
         public string Name { get; set; }
     }

@@ -19,6 +19,13 @@ namespace SeniorWepApiProject.Services
             return new Uri(_baseUri + ApiRoutes.SwapRoutes.Get.Replace("{swapId}", swapId));
         }
 
+        public Uri GetFieldOfInterestUri(string fieldOfInterestName)
+        {
+            return new Uri(
+                _baseUri + ApiRoutes.FieldOfInterestRoutes.Get.Replace("{fieldOfInterestName}",
+                    fieldOfInterestName));
+        }
+
         public Uri GetAllSwapsUri(PaginationQuery pagination = null)
         {
             var uri = new Uri(_baseUri);
