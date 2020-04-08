@@ -29,5 +29,12 @@
             </summary>
             <response code="200">Returns all swaps in the system</response>
         </member>
+        <member name="M:SeniorWepApiProject.Controllers.V1.UserController.Login(SeniorWepApiProject.Contracts.V1.Requests.UserLoginRequest)">
+            <summary>
+            Login User Action
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

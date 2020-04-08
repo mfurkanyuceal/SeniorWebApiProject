@@ -106,6 +106,11 @@ namespace SeniorWepApiProject.Controllers.V1
             return BadRequest("E-Posta adresiniz onaylanmadı!");
         }
 
+        /// <summary>
+        /// Login User Action
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpPost(ApiRoutes.UserRoutes.Login)]
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
@@ -122,6 +127,7 @@ namespace SeniorWepApiProject.Controllers.V1
 
             return Ok(new AuthSuccessResponse
             {
+                UserId = authResponse.User.Id,
                 Token = authResponse.User.Token,
                 RefreshToken = authResponse.RefreshToken
             });
@@ -150,7 +156,7 @@ namespace SeniorWepApiProject.Controllers.V1
 
         [AllowAnonymous]
         [HttpPost(ApiRoutes.UserRoutes.Refresh)]
-        public async Task<IActionResult> Login([FromBody] RefreshTokenRequest request)
+        public async Task<IActionResult> RefreshLogin([FromBody] RefreshTokenRequest request)
         {
             var authResponse = await _userService.RefreshTokenAsync(request.Token, request.RefreshToken);
 

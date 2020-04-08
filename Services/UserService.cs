@@ -289,6 +289,8 @@ namespace SeniorWepApiProject.Services
 
         public async Task<AppUser> GetUserByUserNameAsync(string username)
         {
+            var user = await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
+
             return await _userManager.Users.FirstOrDefaultAsync(x => x.UserName == username);
         }
 

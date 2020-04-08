@@ -17,7 +17,9 @@ namespace SeniorWepApiProject.Installers
             services.AddDefaultIdentity<AppUser>(option => { option.User.RequireUniqueEmail = true; })
                 .AddRoles<IdentityRole>().AddEntityFrameworkStores<DataContext>();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
             services.AddRazorPages();
         }
     }
