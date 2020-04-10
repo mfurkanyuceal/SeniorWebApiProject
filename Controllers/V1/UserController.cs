@@ -127,7 +127,6 @@ namespace SeniorWepApiProject.Controllers.V1
 
             return Ok(new AuthSuccessResponse
             {
-                UserId = authResponse.User.Id,
                 Token = authResponse.User.Token,
                 RefreshToken = authResponse.RefreshToken
             });
