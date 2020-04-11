@@ -267,7 +267,7 @@ namespace SeniorWepApiProject.Controllers.V1
             }
         }
 
-
+        [AllowAnonymous]
         [HttpGet(ApiRoutes.UserRoutes.ProfilePhoto)]
         public IActionResult ProfilePhoto(string userId)
         {
