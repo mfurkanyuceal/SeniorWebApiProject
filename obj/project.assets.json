@@ -7859,14 +7859,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/SeniorWepApiProject.csproj",
+      "projectUniqueName": "/home/muhammedfurkan/SeniorProject/SeniorWebApiProject/SeniorWepApiProject.csproj",
       "projectName": "SeniorWepApiProject",
-      "projectPath": "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/SeniorWepApiProject.csproj",
+      "projectPath": "/home/muhammedfurkan/SeniorProject/SeniorWebApiProject/SeniorWepApiProject.csproj",
       "packagesPath": "/home/muhammedfurkan/.nuget/packages/",
-      "outputPath": "/home/muhammedfurkan/SeniorProject/SeniorWepApiProject/obj/",
+      "outputPath": "/home/muhammedfurkan/SeniorProject/SeniorWebApiProject/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/muhammedfurkan/.config/NuGet/NuGet.Config"
+        "/home/muhammedfurkan/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp3.1"

@@ -10,8 +10,8 @@ using SeniorWepApiProject.DbContext;
 namespace SeniorWepApiProject.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200405195118_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20200531155827_InitialCrete")]
+    partial class InitialCrete
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
